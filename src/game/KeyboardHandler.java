@@ -1,7 +1,7 @@
 package game;
 
 import city.cs.engine.*;
-import game.bodies.PlayerBody;
+import game.bodies.Player;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,9 +13,9 @@ import static game.GameConstants.VELOCITY;
 public class KeyboardHandler extends KeyAdapter {
 
 	private WorldView view;
-	private PlayerBody player;
+	private Player player;
 
-	KeyboardHandler(WorldView view, PlayerBody player) {
+	KeyboardHandler(WorldView view, Player player) {
 		this.view = view;
 		this.player = player;
 	}

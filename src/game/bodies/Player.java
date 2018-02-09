@@ -3,7 +3,7 @@ package game.bodies;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
-public class PlayerBody extends Walker implements StepListener {
+public class Player extends Walker implements StepListener, CollisionListener {
 
 	private static final Shape playerShape = new PolygonShape(1.7485f,-3.2175f,
 			1.6965f,2.366f, 1.5015f,2.457f, -0.8125f,1.846f, -1.69f,0.871f,
@@ -16,14 +16,17 @@ public class PlayerBody extends Walker implements StepListener {
 		LEFT, RIGHT, NOT_MOVING, JUMPING, FALLING
 	}
 
-	public PlayerBody(World w) {
-		this(w, playerShape);
+	public Player(World world) {
+		this(world, playerShape);
 	}
 
-	private PlayerBody(World w, Shape s) {
-		super(w, s);
+	private Player(World world, Shape shape) {
+		super(world, shape);
 		addImage(new BodyImage("data/player_stand.png", 6.5f));
 		setPosition(new Vec2(-45, -20));
+		addCollisionListener(this);
+		setGravityScale(2);
+		world.addStepListener(this);
 	}
 
 	@Override
@@ -55,8 +58,6 @@ public class PlayerBody extends Walker implements StepListener {
 	public void stopWalking() {
 		float force = getMass() * -(getLinearVelocity().x) / (1/60f);
 		applyForce(new Vec2(force, 0));
-
-		changeImage(PlayerMovement.NOT_MOVING);
 	}
 
 	@Override
@@ -64,7 +65,6 @@ public class PlayerBody extends Walker implements StepListener {
 		if (getLinearVelocity().y == 0) {
 			applyImpulse(new Vec2(0, getMass() * speed));
 		}
-		changeImage(PlayerMovement.JUMPING);
 	}
 
 	@Override
@@ -116,6 +116,12 @@ public class PlayerBody extends Walker implements StepListener {
 			addImage(newImg).flipHorizontal();
 		} else {
 			addImage(newImg);
+		}
+	}
+
+	public void collide(CollisionEvent e) {
+		if ( e.getOtherBody() instanceof Enemy ) {
+			System.out.println("Ouch");
 		}
 	}
 }
