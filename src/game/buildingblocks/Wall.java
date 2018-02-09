@@ -1,4 +1,4 @@
-package game.bodies;
+package game.buildingblocks;
 
 import city.cs.engine.BoxShape;
 import city.cs.engine.SolidFixture;

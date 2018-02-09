@@ -1,6 +1,7 @@
 package game.bodies;
 
 import city.cs.engine.*;
+import game.buildingblocks.Edge;
 import org.jbox2d.common.Vec2;
 
 public class Player extends Walker implements StepListener, CollisionListener {
@@ -122,6 +123,8 @@ public class Player extends Walker implements StepListener, CollisionListener {
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy ) {
 			System.out.println("Ouch");
+		} else if (e.getOtherFixture() instanceof Edge) {
+			System.out.println("Edge");
 		}
 	}
 }

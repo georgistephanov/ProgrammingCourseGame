@@ -1,11 +1,16 @@
 package game;
 
 import city.cs.engine.*;
-import game.bodies.Platform;
+import game.bodies.Enemy;
+import game.bodies.WingMan;
+import game.buildingblocks.Platform;
 import game.bodies.Player;
 import game.bodies.SpikeMan;
-import game.bodies.Wall;
+import game.buildingblocks.Wall;
+import org.jbox2d.common.Vec2;
+
 import javax.swing.JFrame;
+
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
 import static game.GameConstants.WINDOW_WIDTH;
@@ -59,19 +64,29 @@ public class Game {
 
 		// make a character
 		player = new Player(world);
-		new SpikeMan(world);
+		Enemy e1 = new SpikeMan(world);
+		e1.setPosition(new Vec2(-20, -23));
+		Enemy e2 = new SpikeMan(world);
+		e2.setPosition(new Vec2(-35, -11));
+		e2.setXDirection(-1);
+
+		Enemy wingMan1 = new WingMan(world);
+		wingMan1.setPosition(new Vec2(-10, 23));
+		wingMan1.setXDirection(-1);
+		Enemy wingMan2 = new WingMan(world);
+		wingMan2.setPosition(new Vec2(10, 5));
 	}
 
 	private void renderLevel1() {
 		// TODO: If these are not used remove the setPosition method and just do it with the regular one
-		SolidFixture leftPlatform1 = new Platform(world, 15, .5f).setPosition(-33, -12);
-		SolidFixture leftPlatform2 = new Platform(world, 9, .5f).setPosition(-39, 0);
+		SolidFixture leftPlatform1 = new Platform(world, 15, .5f).setPosition(-32, -12);
+		SolidFixture leftPlatform2 = new Platform(world, 9, .5f).setPosition(-38, 0);
 		SolidFixture leftPlatform3 = new Platform(world, 5, .5f).setPosition(-22.5f, 10);
 		SolidFixture leftPlatform4 = new Platform(world, 3, .5f).setPosition(-4f, -18);
 
 		SolidFixture midPlatform = new Wall(world, 20).setPosition(0, -5);
 
-		SolidFixture rightPlatform1 = new Platform(world, 19, .5f).setPosition(34, 18);
+		SolidFixture rightPlatform1 = new Platform(world, 18, .5f).setPosition(29, 18);
 	}
 
 	private void renderWalls() {
