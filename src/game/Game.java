@@ -3,13 +3,18 @@ package game;
 import city.cs.engine.*;
 import game.bodies.Enemy;
 import game.bodies.WingMan;
+import game.buildingblocks.Coin;
 import game.buildingblocks.Platform;
 import game.bodies.Player;
 import game.bodies.SpikeMan;
 import game.buildingblocks.Wall;
 import org.jbox2d.common.Vec2;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.LabelUI;
+
+import java.awt.*;
 
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
@@ -38,6 +43,7 @@ public class Game {
 		view.addKeyListener(new KeyboardHandler(view, player));
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
+
 		world.start();
 	}
 
@@ -55,7 +61,7 @@ public class Game {
 		frame.setVisible(true);
 
 //		view.setGridResolution(1);
-//		JFrame debugView = new DebugViewer(world, 1920, 1080);
+		JFrame debugView = new DebugViewer(world, 1920, 1080);
 	}
 
 	private void populateWorld() {
@@ -87,6 +93,9 @@ public class Game {
 		SolidFixture midPlatform = new Wall(world, 20).setPosition(0, -5);
 
 		SolidFixture rightPlatform1 = new Platform(world, 18, .5f).setPosition(29, 18);
+
+		Coin coin1 = new Coin(world);
+		coin1.setPosition(new Vec2(-3, -16));
 	}
 
 	private void renderWalls() {

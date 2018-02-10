@@ -1,6 +1,7 @@
 package game.bodies;
 
 import city.cs.engine.*;
+import game.buildingblocks.Coin;
 import game.buildingblocks.Edge;
 import org.jbox2d.common.Vec2;
 
@@ -10,12 +11,13 @@ public class Player extends Walker implements StepListener, CollisionListener {
 			1.6965f,2.366f, 1.5015f,2.457f, -0.8125f,1.846f, -1.69f,0.871f,
 			-1.7745f,-1.976f, -1.339f,-3.2305f);
 
-	private int imageIndex = 1;
-
 	private PlayerMovement lastMovingDirection = PlayerMovement.NOT_MOVING;
 	private enum PlayerMovement {
-		LEFT, RIGHT, NOT_MOVING, JUMPING, FALLING
+		LEFT, RIGHT, NOT_MOVING, JUMPING, FALLING;
 	}
+	private int imageIndex = 1;
+
+	private int coins = 0;
 
 	public Player(World world) {
 		this(world, playerShape);
@@ -28,6 +30,15 @@ public class Player extends Walker implements StepListener, CollisionListener {
 		addCollisionListener(this);
 		setGravityScale(2);
 		world.addStepListener(this);
+	}
+
+	public int getCoins() {
+		return coins;
+	}
+	public void setCoins(int coins) {
+		this.coins = coins;
+
+		// TODO: Add an observer to notify the world to display the correct amount of coins
 	}
 
 	@Override
@@ -125,6 +136,9 @@ public class Player extends Walker implements StepListener, CollisionListener {
 			System.out.println("Ouch");
 		} else if (e.getOtherFixture() instanceof Edge) {
 			System.out.println("Edge");
+		} else if (e.getOtherBody() instanceof Coin) {
+			e.getOtherBody().destroy();
+			setCoins(coins++);
 		}
 	}
 }
