@@ -24,12 +24,15 @@ public class KeyboardHandler extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_D:
 				player.startWalking(VELOCITY);
 				break;
 			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
 				player.startWalking(-VELOCITY);
 				break;
 			case KeyEvent.VK_UP:
+			case KeyEvent.VK_W:
 				player.jump(JUMP_SPEED);
 				break;
 			default:
@@ -41,6 +44,8 @@ public class KeyboardHandler extends KeyAdapter {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
+			case KeyEvent.VK_D:
 				player.stopWalking();
 				break;
 			default:

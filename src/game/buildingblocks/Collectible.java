@@ -4,7 +4,8 @@ import city.cs.engine.*;
 
 public abstract class Collectible extends StaticBody implements StepListener {
 
-	private int stepCounter = 0;
+	private int currentStep = 0;
+	private int stepCounter = 1;
 	private int imageIndex = 0;
 	private boolean imageUp = true;
 	private BodyImage [] images;
@@ -21,9 +22,11 @@ public abstract class Collectible extends StaticBody implements StepListener {
 		}
 	}
 
+	public void setStepCounter(int stepCounter) { this.stepCounter = stepCounter; }
+
 	@Override
 	public void preStep(StepEvent stepEvent) {
-		if (stepCounter++ == 6) {
+		if (currentStep++ == stepCounter) {
 			removeAllImages();
 
 			if ((imageIndex >= images.length - 1 && imageUp) || (imageIndex == 0 && !imageUp)) {
@@ -36,7 +39,7 @@ public abstract class Collectible extends StaticBody implements StepListener {
 				addImage(images[imageIndex--]).flipHorizontal();
 			}
 
-			stepCounter = 0;
+			currentStep = 0;
 		}
 	}
 

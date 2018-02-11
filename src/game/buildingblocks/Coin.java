@@ -14,5 +14,6 @@ public class Coin extends Collectible {
 
 	public Coin(World world) {
 		super(world, coinShape, coinImages);
+		setStepCounter(6);
 	}
 }

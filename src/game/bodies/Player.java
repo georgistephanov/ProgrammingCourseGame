@@ -2,7 +2,7 @@ package game.bodies;
 
 import city.cs.engine.*;
 import game.buildingblocks.Coin;
-import game.buildingblocks.Edge;
+import game.buildingblocks.Door;
 import org.jbox2d.common.Vec2;
 
 public class Player extends Walker implements StepListener, CollisionListener {
@@ -137,6 +137,8 @@ public class Player extends Walker implements StepListener, CollisionListener {
 		} else if (e.getOtherBody() instanceof Coin) {
 			e.getOtherBody().destroy();
 			setCoins(++coins);
+		} else if (e.getOtherBody() instanceof Door) {
+			System.out.println("You won!");
 		}
 	}
 }

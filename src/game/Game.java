@@ -3,14 +3,13 @@ package game;
 import city.cs.engine.*;
 import game.bodies.Enemy;
 import game.bodies.WingMan;
-import game.buildingblocks.Coin;
-import game.buildingblocks.Life;
-import game.buildingblocks.Platform;
+import game.buildingblocks.*;
 import game.bodies.Player;
 import game.bodies.SpikeMan;
-import game.buildingblocks.Wall;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
+
+import java.awt.*;
 
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
@@ -57,7 +56,7 @@ public class Game {
 		frame.setVisible(true);
 
 //		view.setGridResolution(1);
-//		new DebugViewer(world, 1920, 1080);
+		new DebugViewer(world, 1920, 1080);
 	}
 
 	private void populateWorld() {
@@ -66,6 +65,28 @@ public class Game {
 
 		// make a character
 		player = new Player(world);
+	}
+
+	private void renderLevel1() {
+		// TODO: If these are not used remove the setPosition method and just do it with the regular one
+		new Platform(world, 15, .5f).setPosition(-32, -12);
+		new Platform(world, 9, .5f).setPosition(-38, 0);
+		new Platform(world, 5, .5f).setPosition(-35, 9.5f);
+		new Platform(world, 3, .5f).setPosition(-4, -18);
+		new Platform(world, 3, .5f).setPosition(-4, -5);
+		new Platform(world, 4, .5f).setPosition(-10, 13);
+
+		new Wall(world, 20).setPosition(0, -5f);
+
+		new Platform(world, 18, .5f).setPosition(29, 18);
+
+		new Coin(world).setPosition(new Vec2(-4, -16));
+		new Coin(world).setPosition(new Vec2(-25, -23.5f));
+		new Coin(world).setPosition(new Vec2(-35, 12));
+
+		new Life(world).setPosition(new Vec2(45, 20));
+
+		new Door(world).setPosition(new Vec2(44.25f, -21.5f));
 
 		// Make SpikeMan characters
 		Enemy e1 = new SpikeMan(world);
@@ -79,35 +100,12 @@ public class Game {
 		wingMan1.setPosition(new Vec2(-10, 23));
 		wingMan1.setXDirection(-1);
 		Enemy wingMan2 = new WingMan(world);
-		wingMan2.setPosition(new Vec2(10, 5));
-	}
-
-	private void renderLevel1() {
-		// TODO: If these are not used remove the setPosition method and just do it with the regular one
-		new Platform(world, 15, .5f).setPosition(-32, -12);
-		new Platform(world, 9, .5f).setPosition(-38, 0);
-		new Platform(world, 5, .5f).setPosition(-35, 10);
-		new Platform(world, 3, .5f).setPosition(-4f, -18);
-		new Platform(world, 3, .5f).setPosition(-4f, -5);
-		new Platform(world, 4, .5f).setPosition(-10f, 13);
-
-		new Wall(world, 20).setPosition(0, -5);
-
-		new Platform(world, 18, .5f).setPosition(29, 18);
-
-		new Coin(world).setPosition(new Vec2(-4, -16));
-		new Coin(world).setPosition(new Vec2(-25, -23.5f));
-		new Coin(world).setPosition(new Vec2(-35, 12));
-
-		new Life(world).setPosition(new Vec2(45, 20));
+		wingMan2.setPosition(new Vec2(10, 8));
 	}
 
 	private void renderWalls() {
 		// Ground
 		new Platform(world, 50, 1).setPosition(0, -26);
-
-		// Ceiling
-		new Platform(world, 50, .1f).setPosition(0, 27);
 
 		// Left wall
 		new Wall(world, 28).setPosition(-48, 0);
