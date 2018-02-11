@@ -37,6 +37,7 @@ public class Player extends Walker implements StepListener, CollisionListener {
 	}
 	public void setCoins(int coins) {
 		this.coins = coins;
+		System.out.println("Coins: " + coins);
 
 		// TODO: Add an observer to notify the world to display the correct amount of coins
 	}
@@ -108,7 +109,6 @@ public class Player extends Walker implements StepListener, CollisionListener {
 					newImg = new BodyImage("data/player_walk1.png", 6.5f);
 				}
 				lastMovingDirection = direction;
-
 				break;
 			case NOT_MOVING:
 				imageIndex = 1;
@@ -134,11 +134,9 @@ public class Player extends Walker implements StepListener, CollisionListener {
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy ) {
 			System.out.println("Ouch");
-		} else if (e.getOtherFixture() instanceof Edge) {
-			System.out.println("Edge");
 		} else if (e.getOtherBody() instanceof Coin) {
 			e.getOtherBody().destroy();
-			setCoins(coins++);
+			setCoins(++coins);
 		}
 	}
 }
