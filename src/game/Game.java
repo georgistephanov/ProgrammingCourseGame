@@ -9,8 +9,6 @@ import game.bodies.SpikeMan;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
 
-import java.awt.*;
-
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
 import static game.GameConstants.WINDOW_WIDTH;
@@ -60,11 +58,11 @@ public class Game {
 	}
 
 	private void populateWorld() {
-		renderWalls();
-		renderLevel1();
-
 		// make a character
 		player = new Player(world);
+		
+		renderWalls();
+		renderLevel1();
 	}
 
 	private void renderLevel1() {
@@ -87,6 +85,9 @@ public class Game {
 		new Life(world).setPosition(new Vec2(45, 20));
 
 		new Door(world).setPosition(new Vec2(44.25f, -21.5f));
+
+		// Set the player's position
+		player.setPosition(new Vec2(-45, -20));
 
 		// Make SpikeMan characters
 		Enemy e1 = new SpikeMan(world);

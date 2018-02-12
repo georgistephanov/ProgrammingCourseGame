@@ -7,7 +7,7 @@ import game.images.WalkerImageManager;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
-public class Player extends Walker implements StepListener, CollisionListener {
+public class Player extends CustomWalker implements StepListener, CollisionListener {
 
 	private static final Shape playerShape = new PolygonShape(1.7485f,-3.2175f,
 			1.6965f,2.366f, 1.5015f,2.457f, -0.8125f,1.846f, -1.69f,0.871f,
@@ -22,70 +22,26 @@ public class Player extends Walker implements StepListener, CollisionListener {
 	};
 
 	private int coins = 0;
-	private static WalkerImageManager imageManager;
 
 	public Player(World world) {
-		this(world, playerShape);
 
-		imageManager = new WalkerImageManager(this, standingImage, walkingImages, jumpingImage, fallingImage);
-		imageManager.display();
-	}
+		super(world, playerShape, standingImage, walkingImages, jumpingImage, fallingImage);
 
-	private Player(World world, Shape shape) {
-		super(world, shape);
-		addImage(new BodyImage("data/player_stand.png", 6.5f));
-		setPosition(new Vec2(-45, -20));
-		addCollisionListener(this);
 		setGravityScale(2);
+
+		addCollisionListener(this);
 		world.addStepListener(this);
 	}
 
 	public int getCoins() {
 		return coins;
 	}
-	public void setCoins(int coins) {
+
+	private void setCoins(int coins) {
+		// TODO: Add an observer to notify the world to display the correct amount of coins
+
 		this.coins = coins;
 		System.out.println("Coins: " + coins);
-
-		// TODO: Add an observer to notify the world to display the correct amount of coins
-	}
-
-	@Override
-	public void startWalking(float speed) {
-		Vec2 velocity = getLinearVelocity();
-		float initialForce = 0;
-
-		if (speed > 0) {
-			initialForce = 15;
-			imageManager.changeImage(RIGHT);
-		}
-		else if (speed < 0) {
-			initialForce = -15;
-			imageManager.changeImage(LEFT);
-		}
-
-		float velocityChange;
-		if ( (speed < 0 && velocity.x > 0) || (speed > 0 && velocity.x < 0) )  {
-			velocityChange = initialForce;
-		} else {
-			velocityChange = initialForce - velocity.x;
-		}
-
-		float force = getMass() * velocityChange / (1/60f);
-		applyForce(new Vec2(force, 0));
-	}
-
-	@Override
-	public void stopWalking() {
-		float force = getMass() * -(getLinearVelocity().x) / (1/60f);
-		applyForce(new Vec2(force, 0));
-	}
-
-	@Override
-	public void jump(float speed) {
-		if (getLinearVelocity().y == 0) {
-			applyImpulse(new Vec2(0, getMass() * speed));
-		}
 	}
 
 	@Override
@@ -93,14 +49,13 @@ public class Player extends Walker implements StepListener, CollisionListener {
 
 	@Override
 	public void postStep(StepEvent stepEvent) {
-		float y = getLinearVelocity().y;
-		float x = getLinearVelocity().x;
+		Vec2 velocity = getLinearVelocity();
 
-		if (y > 0) {
+		if (velocity.y > 0) {
 			imageManager.changeImage(JUMPING);
-		} else if (y < 0) {
+		} else if (velocity.y < 0) {
 			imageManager.changeImage(FALLING);
-		} else if (x == 0) {
+		} else if (velocity.x == 0) {
 			imageManager.changeImage(NOT_MOVING);
 		}
 	}
