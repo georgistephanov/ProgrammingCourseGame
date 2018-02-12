@@ -14,8 +14,8 @@ public class Platform extends SolidFixture {
 		super(new StaticBody(world), new BoxShape(width - .4f, height));
 		getBody().setFillColor(Color.DARK_GRAY);
 
-		leftEdge = new Edge(world, height, true);
-		rightEdge = new Edge(world, height, false);
+		leftEdge = new Edge(world, height);
+		rightEdge = new Edge(world, height);
 
 		totalWidth = width;
 	}

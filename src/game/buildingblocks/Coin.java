@@ -1,6 +1,7 @@
 package game.buildingblocks;
 
 import city.cs.engine.*;
+import game.images.RotatingImageManager;
 
 public class Coin extends Collectible {
 
@@ -13,7 +14,10 @@ public class Coin extends Collectible {
 	};
 
 	public Coin(World world) {
-		super(world, coinShape, coinImages);
-		setStepCounter(6);
+		super(world, coinShape);
+
+		imageManager = new RotatingImageManager(this, coinImages);
+		imageManager.setStepCounter(6);
+		imageManager.display();
 	}
 }

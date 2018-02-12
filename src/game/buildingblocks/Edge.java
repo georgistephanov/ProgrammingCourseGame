@@ -9,7 +9,7 @@ import org.jbox2d.common.Vec2;
 public class Edge extends SolidFixture {
 	private static float HALF_WIDTH = .18f;
 
-	Edge(World world, float height, boolean isLeft) {
+	Edge(World world, float height) {
 		super (new StaticBody(world), new BoxShape(HALF_WIDTH, height));
 		setFriction(0);
 	}
