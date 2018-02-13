@@ -1,14 +1,11 @@
 package game;
 
 import city.cs.engine.*;
-import bodies.collectibles.Coin;
-import bodies.collectibles.Life;
-import bodies.enemies.Enemy;
-import bodies.enemies.WingMan;
 import buildingblocks.*;
 import bodies.Player;
-import bodies.enemies.SpikeMan;
-import org.jbox2d.common.Vec2;
+import levels.Level;
+import levels.LevelFactory;
+
 import javax.swing.*;
 
 import static game.GameConstants.WINDOW_HEIGHT;
@@ -27,14 +24,25 @@ public class Game {
 	// display the view in a frame
 	private final JFrame frame = new JFrame(WINDOW_TITLE);
 
+	private final LevelFactory levelFactory;
+
 	private Player player;
 
 	/** Initialise a new Game. */
 	private Game() {
+		// Set the frame and its settings
 		setFrame();
+
+		// make a character
+		player = new Player(world);
+
+		// Get an instance of the LevelFactory
+		levelFactory = LevelFactory.getInstance(world, player);
+
+		// Set the ground, walls and generate the first level
 		populateWorld();
 
-		// add this to the view, so coordinates are relative to the view
+		// Register the KeyboardHandler
 		view.addKeyListener(new KeyboardHandler(view, player));
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
@@ -60,50 +68,14 @@ public class Game {
 	}
 
 	private void populateWorld() {
-		// make a character
-		player = new Player(world);
-
+		// Render the floor and the walls
 		renderWalls();
-		renderLevel1();
-	}
 
-	private void renderLevel1() {
-		// TODO: If these are not used remove the setPosition method and just do it with the regular one
-		new Platform(world, 15, .5f).setPosition(-32, -12);
-		new Platform(world, 9, .5f).setPosition(-38, 0);
-		new Platform(world, 5, .5f).setPosition(-35, 9.5f);
-		new Platform(world, 3, .5f).setPosition(-4, -18);
-		new Platform(world, 3, .5f).setPosition(-4, -5);
-		new Platform(world, 4, .5f).setPosition(-10, 13);
-
-		new Wall(world, 20).setPosition(0, -5f);
-
-		new Platform(world, 18, .5f).setPosition(29, 18);
-
-		new Coin(world).setPosition(new Vec2(-4, -16));
-		new Coin(world).setPosition(new Vec2(-25, -23.5f));
-		new Coin(world).setPosition(new Vec2(-35, 12));
-
-		new Life(world).setPosition(new Vec2(45, 20));
-
-		new Door(world).setPosition(new Vec2(44.25f, -21.5f));
-
-		// Set the player's position
-		player.setPosition(new Vec2(-45, -20));
-
-//		// Make SpikeMan characters
-		Enemy e1 = new SpikeMan(world);
-		e1.setPosition(new Vec2(-20, -23));
-		Enemy e2 = new SpikeMan(world);
-		e2.setPosition(new Vec2(-35, -11));
-		e2.setMovementDirection(-1);
-
-		// Make WingMan characters
-		Enemy wingMan1 = new WingMan(world);
-		wingMan1.setPosition(new Vec2(-10, 23));
-		wingMan1.setMovementDirection(-1);
-		Enemy wingMan2 = new WingMan(world);
-		wingMan2.setPosition(new Vec2(10, 8));
+		// Generate level 1
+		Level levelOne = levelFactory.getLevel(1);
+		levelOne.displayPlatforms();
+		levelOne.displayEnemies();
+		levelOne.displayCollectibles();
 	}
 
 	private void renderWalls() {
