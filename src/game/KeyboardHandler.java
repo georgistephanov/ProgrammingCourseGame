@@ -1,7 +1,7 @@
 package game;
 
 import city.cs.engine.*;
-import game.bodies.Player;
+import bodies.Player;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

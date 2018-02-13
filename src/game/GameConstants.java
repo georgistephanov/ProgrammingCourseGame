@@ -5,7 +5,7 @@ public class GameConstants {
 	static int WINDOW_HEIGHT = 1080;
 	static String WINDOW_TITLE = "Basic world";
 
-	static int VELOCITY = 12;
+	static int VELOCITY = 15;
 	static int JUMP_SPEED = 20;
 
 	public enum MovementDirections {

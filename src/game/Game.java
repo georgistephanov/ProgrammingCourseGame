@@ -1,11 +1,13 @@
 package game;
 
 import city.cs.engine.*;
-import game.bodies.Enemy;
-import game.bodies.WingMan;
-import game.buildingblocks.*;
-import game.bodies.Player;
-import game.bodies.SpikeMan;
+import bodies.collectibles.Coin;
+import bodies.collectibles.Life;
+import bodies.enemies.Enemy;
+import bodies.enemies.WingMan;
+import buildingblocks.*;
+import bodies.Player;
+import bodies.enemies.SpikeMan;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
 
@@ -16,7 +18,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Game {
 
-	/** The World in which the game.bodies move and interact. */
+	/** The World in which the bodies move and interact. */
 	private final World world = new World();
 
 	/** A graphical display of the world (a specialised JPanel). */
@@ -60,7 +62,7 @@ public class Game {
 	private void populateWorld() {
 		// make a character
 		player = new Player(world);
-		
+
 		renderWalls();
 		renderLevel1();
 	}
@@ -89,17 +91,17 @@ public class Game {
 		// Set the player's position
 		player.setPosition(new Vec2(-45, -20));
 
-		// Make SpikeMan characters
+//		// Make SpikeMan characters
 		Enemy e1 = new SpikeMan(world);
 		e1.setPosition(new Vec2(-20, -23));
 		Enemy e2 = new SpikeMan(world);
 		e2.setPosition(new Vec2(-35, -11));
-		e2.setXDirection(-1);
+		e2.setMovementDirection(-1);
 
 		// Make WingMan characters
 		Enemy wingMan1 = new WingMan(world);
 		wingMan1.setPosition(new Vec2(-10, 23));
-		wingMan1.setXDirection(-1);
+		wingMan1.setMovementDirection(-1);
 		Enemy wingMan2 = new WingMan(world);
 		wingMan2.setPosition(new Vec2(10, 8));
 	}
