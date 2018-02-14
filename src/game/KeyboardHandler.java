@@ -1,11 +1,8 @@
 package game;
 
-import city.cs.engine.*;
 import bodies.Player;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import static game.GameConstants.JUMP_SPEED;
 import static game.GameConstants.VELOCITY;
 

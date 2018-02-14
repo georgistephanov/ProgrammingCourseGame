@@ -63,7 +63,7 @@ public class Game {
 		frame.pack();
 		frame.setVisible(true);
 
-//		view.setGridResolution(1);
+		view.setGridResolution(1);
 		new DebugViewer(world, 1920, 1080);
 	}
 

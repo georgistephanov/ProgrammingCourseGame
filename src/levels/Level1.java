@@ -3,12 +3,13 @@ package levels;
 import bodies.Player;
 import bodies.collectibles.Coin;
 import bodies.collectibles.Life;
-import bodies.enemies.Enemy;
 import bodies.enemies.SpikeMan;
 import bodies.enemies.WingMan;
 import buildingblocks.Platform;
 import buildingblocks.Wall;
 import city.cs.engine.World;
+
+import static game.GameConstants.MovementDirections.LEFT;
 
 public class Level1 extends AbstractLevel {
 
@@ -25,8 +26,8 @@ public class Level1 extends AbstractLevel {
 		new Platform(world, 15, .5f).setPosition(-32, -12);
 		new Platform(world, 9, .5f).setPosition(-38, 0);
 		new Platform(world, 5, .5f).setPosition(-35, 9.5f);
-		new Platform(world, 3, .5f).setPosition(-4, -18);
-		new Platform(world, 3, .5f).setPosition(-4, -5);
+		new Platform(world, 4, .5f).setPosition(-5, -18);
+		new Platform(world, 4, .5f).setPosition(-5, -5);
 		new Platform(world, 4, .5f).setPosition(-10, 13);
 
 		// Mid wall
@@ -34,31 +35,39 @@ public class Level1 extends AbstractLevel {
 
 		// Right-hand side platforms
 		new Platform(world, 18, .5f).setPosition(29, 18);
+		new Platform(world, 16, .5f).setPosition(17, 9);
+		new Platform(world, 12, .5f).setPosition(35, 2);
+		new Platform(world, 15, .5f).setPosition(16, -8);
+		new Platform(world, 18, .5f).setPosition(29, -16);
 	}
 
 	@Override
 	public void displayEnemies() {
 		// Make SpikeMan enemies
-		Enemy e1 = new SpikeMan(world);
-		e1.setPosition(-20, -23);
-		Enemy e2 = new SpikeMan(world);
-		e2.setPosition(-35, -11);
-		e2.setMovementDirection(-1);
+		new SpikeMan(world).setPosition(-20, -23);
+		new SpikeMan(world).setMovementDirection(LEFT).setPosition(-35, -11);
+		new SpikeMan(world).setMovementDirection(LEFT).setPosition(20, -6);
+		new SpikeMan(world).setPosition(20, -14);
 
 		// Make WingMan enemies
-		Enemy wingMan1 = new WingMan(world);
-		wingMan1.setPosition(-10, 23);
-		wingMan1.setMovementDirection(-1);
-		Enemy wingMan2 = new WingMan(world);
-		wingMan2.setPosition(10, 8);
+		new WingMan(world).setMovementDirection(LEFT).setPosition(-10, 23);
+		new WingMan(world).setPosition(10, 5.5f);
 	}
 
 	@Override
 	public void displayCollectibles() {
-		new Coin(world).setPosition(-4, -16);
-		new Coin(world).setPosition(-25, -23.5f);
-		new Coin(world).setPosition(-35, 12);
+		// Left-hand side collectibles
+		new Coin(world).setPosition(-5, -2.5f);
+		new Coin(world).setPosition(-44, -9.5f);
+		new Coin(world).setPosition(-35, 11.5f);
+		new Coin(world).setPosition(-10, 15.5f);
 
+		// Right-hand side collectibles
 		new Life(world).setPosition(45, 20);
+		new Coin(world).setPosition(5, 11.5f);
+		new Coin(world).setPosition(5, -5.5f);
+		new Coin(world).setPosition(45, -13.5f);
+		new Coin(world).setPosition(45, 4.5f);
+
 	}
 }

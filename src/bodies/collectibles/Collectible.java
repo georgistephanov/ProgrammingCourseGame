@@ -4,7 +4,7 @@ import city.cs.engine.*;
 import imagemanagers.AbstractImageManager;
 import org.jbox2d.common.Vec2;
 
-abstract class Collectible extends StaticBody {
+public abstract class Collectible extends StaticBody {
 
 	AbstractImageManager imageManager;
 

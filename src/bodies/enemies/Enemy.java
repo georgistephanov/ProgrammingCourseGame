@@ -1,10 +1,14 @@
 package bodies.enemies;
 
+import bodies.collectibles.Collectible;
+import buildingblocks.Platform;
 import city.cs.engine.*;
 import bodies.CustomWalker;
 import buildingblocks.Edge;
 import buildingblocks.Wall;
-import game.GameConstants;
+import game.GameConstants.MovementDirections;
+import static game.GameConstants.MovementDirections.LEFT;
+import static game.GameConstants.MovementDirections.RIGHT;
 
 public abstract class Enemy extends CustomWalker implements StepListener, CollisionListener {
 	private float xVelocity = 10;
@@ -24,10 +28,13 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 		this.xVelocity = xVelocity;
 	}
 
-	public void setMovementDirection(float movementDirection) {
-		if ( (movementDirection < 0 && xVelocity > 0) || (movementDirection > 0 && xVelocity < 0) ) {
+	public Enemy setMovementDirection(MovementDirections movementDirection) {
+		if ( (movementDirection == LEFT && xVelocity > 0) ||
+				(movementDirection == RIGHT && xVelocity < 0) ) {
 			xVelocity = -xVelocity;
 		}
+
+		return this;
 	}
 
 	void setChangeImagePerSteps(int stepsChangeImage) {
@@ -35,9 +42,11 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 	}
 
 	public void collide(CollisionEvent e) {
-		if (e.getOtherFixture() instanceof Wall || e.getOtherFixture() instanceof Edge) {
-			xVelocity = -xVelocity;
+		if (e.getOtherFixture() instanceof Platform) {
+			return;
 		}
+
+		xVelocity = -xVelocity;
 	}
 
 	@Override
@@ -49,9 +58,9 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 			currentStep = 0;
 
 			if (xVelocity > 0) {
-				imageManager.changeImage(GameConstants.MovementDirections.RIGHT);
+				imageManager.changeImage(RIGHT);
 			} else {
-				imageManager.changeImage(GameConstants.MovementDirections.LEFT);
+				imageManager.changeImage(LEFT);
 			}
 		}
 	}
