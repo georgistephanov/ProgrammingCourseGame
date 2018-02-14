@@ -86,4 +86,8 @@ public class CustomWalker extends Walker {
 			applyImpulse(new Vec2(0, getMass() * speed));
 		}
 	}
+
+	public void setPosition(float x, float y) {
+		setPosition(new Vec2(x, y));
+	}
 }

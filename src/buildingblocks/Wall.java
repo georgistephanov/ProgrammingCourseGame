@@ -8,15 +8,10 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
-public class Wall extends SolidFixture {
+public class Wall extends CustomSolidFixture {
 	public Wall(World world, float height) {
 		super (new StaticBody(world), new BoxShape(1, height));
 		getBody().setFillColor(Color.DARK_GRAY);
 		setFriction(0);
-	}
-
-	public Wall setPosition(float x, float y) {
-		getBody().setPosition(new Vec2(x, y));
-		return this;
 	}
 }

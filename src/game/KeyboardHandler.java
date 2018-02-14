@@ -12,11 +12,9 @@ import static game.GameConstants.VELOCITY;
 
 public class KeyboardHandler extends KeyAdapter {
 
-	private WorldView view;
 	private Player player;
 
-	KeyboardHandler(WorldView view, Player player) {
-		this.view = view;
+	KeyboardHandler(Player player) {
 		this.player = player;
 	}
 

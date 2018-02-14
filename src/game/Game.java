@@ -43,7 +43,7 @@ public class Game {
 		populateWorld();
 
 		// Register the KeyboardHandler
-		view.addKeyListener(new KeyboardHandler(view, player));
+		view.addKeyListener(new KeyboardHandler(player));
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
 

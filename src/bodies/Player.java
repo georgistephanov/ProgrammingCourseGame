@@ -81,7 +81,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		} else if (e.getOtherBody() instanceof Coin) {
 			e.getOtherBody().destroy();
 			setCoins(++coins);
-		} else if (e.getOtherBody() instanceof Door) {
+		} else if (e.getOtherFixture() instanceof Door) {
 			System.out.println("You won!");
 		}
 	}

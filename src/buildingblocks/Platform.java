@@ -5,7 +5,7 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
-public class Platform extends SolidFixture {
+public class Platform extends CustomSolidFixture {
 	private Edge leftEdge;
 	private Edge rightEdge;
 	private float totalWidth;
@@ -20,11 +20,9 @@ public class Platform extends SolidFixture {
 		totalWidth = width;
 	}
 
-	public Platform setPosition(float x, float y) {
+	public void setPosition(float x, float y) {
 		getBody().setPosition(new Vec2(x, y));
 		leftEdge.setPosition(x - (totalWidth - .2f), y);
 		rightEdge.setPosition(x + (totalWidth - .2f), y);
-
-		return this;
 	}
 }
