@@ -44,6 +44,7 @@ public class Game {
 
 		// Register the KeyboardHandler
 		view.addKeyListener(new KeyboardHandler(player));
+		view.addMouseListener(new MouseHandler(view, player));
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
 

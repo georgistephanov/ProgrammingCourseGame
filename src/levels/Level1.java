@@ -57,17 +57,20 @@ public class Level1 extends AbstractLevel {
 	@Override
 	public void displayCollectibles() {
 		// Left-hand side collectibles
-		new Coin(world).setPosition(-5, -2.5f);
-		new Coin(world).setPosition(-44, -9.5f);
+		new Coin(world).setPosition(-5, -3f);
+		new Coin(world).setPosition(-44, -10);
 		new Coin(world).setPosition(-35, 11.5f);
-		new Coin(world).setPosition(-10, 15.5f);
+		new Coin(world).setPosition(-10, 15);
 
 		// Right-hand side collectibles
 		new Life(world).setPosition(45, 20);
-		new Coin(world).setPosition(5, 11.5f);
-		new Coin(world).setPosition(5, -5.5f);
-		new Coin(world).setPosition(45, -13.5f);
-		new Coin(world).setPosition(45, 4.5f);
+		new Coin(world).setPosition(5, 11f);
+		new Coin(world).setPosition(5, -6);
+		new Coin(world).setPosition(45, -14);
+		new Coin(world).setPosition(45, 4);
 
+		for (int i = 1; i <= 10; i++) {
+			new Coin(world).setPosition(3.75f * i, -23.5f);
+		}
 	}
 }

@@ -2,8 +2,6 @@ package bodies;
 
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
-import bodies.collectibles.Coin;
-import buildingblocks.Door;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
@@ -13,15 +11,16 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 			1.6965f,2.366f, 1.5015f,2.457f, -0.8125f,1.846f, -1.69f,0.871f,
 			-1.7745f,-1.976f, -1.339f,-3.2305f);
 
-	private static BodyImage standingImage = new BodyImage("data/player_stand.png", 6.5f);
-	private static BodyImage jumpingImage = new BodyImage("data/player_jump.png", 6.5f);
-	private static BodyImage fallingImage = new BodyImage("data/player_fall.png", 6.5f);
+	private static BodyImage standingImage = new BodyImage("data/player/player_stand.png", 6.5f);
+	private static BodyImage jumpingImage = new BodyImage("data/player/player_jump.png", 6.5f);
+	private static BodyImage fallingImage = new BodyImage("data/player/player_fall.png", 6.5f);
 	private static BodyImage [] walkingImages = {
-			new BodyImage("data/player_walk1.png", 6.5f),
-			new BodyImage("data/player_walk2.png", 6.5f)
+			new BodyImage("data/player/player_walk1.png", 6.5f),
+			new BodyImage("data/player/player_walk2.png", 6.5f)
 	};
 
 	private int coins = 0;
+	private int lifes = 3;
 
 	public Player(World world) {
 		super( new CustomWalker.Builder(world, playerShape)
@@ -40,11 +39,30 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		return coins;
 	}
 
+	public void addCoin() {
+		setCoins(coins + 1);
+	}
+
 	private void setCoins(int coins) {
 		// TODO: Add an observer to notify the world to display the correct amount of coins
 
 		this.coins = coins;
 		System.out.println("Coins: " + coins);
+	}
+
+	public int getLifes() {
+		return lifes;
+	}
+
+	public void addLife() {
+		setLifes(lifes + 1);
+	}
+
+	private void setLifes(int lifes) {
+		// TODO: Add an observer to notify the world to display the correct amount of lifes
+
+		this.lifes = lifes;
+		System.out.println("Lifes: " + lifes);
 	}
 
 	@Override
@@ -78,11 +96,6 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
 			System.out.println("Ouch");
-		} else if (e.getOtherBody() instanceof Coin) {
-			e.getOtherBody().destroy();
-			setCoins(++coins);
-		} else if (e.getOtherFixture() instanceof Door) {
-			System.out.println("You won!");
 		}
 	}
 }

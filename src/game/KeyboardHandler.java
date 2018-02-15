@@ -1,6 +1,8 @@
 package game;
 
 import bodies.Player;
+import buildingblocks.Door;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import static game.GameConstants.JUMP_SPEED;
@@ -30,6 +32,10 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_W:
 				player.jump(JUMP_SPEED);
 				break;
+			case KeyEvent.VK_SPACE:
+				if (Door.userEntered) {
+					System.out.println("You won!");
+				}
 			default:
 		}
 	}

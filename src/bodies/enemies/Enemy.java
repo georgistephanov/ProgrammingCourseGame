@@ -1,11 +1,8 @@
 package bodies.enemies;
 
-import bodies.collectibles.Collectible;
 import buildingblocks.Platform;
 import city.cs.engine.*;
 import bodies.CustomWalker;
-import buildingblocks.Edge;
-import buildingblocks.Wall;
 import game.GameConstants.MovementDirections;
 import static game.GameConstants.MovementDirections.LEFT;
 import static game.GameConstants.MovementDirections.RIGHT;
