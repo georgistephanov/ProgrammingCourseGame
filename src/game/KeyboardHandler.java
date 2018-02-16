@@ -9,7 +9,9 @@ import java.awt.event.KeyEvent;
 import static game.GameConstants.JUMP_SPEED;
 import static game.GameConstants.VELOCITY;
 
-
+/**
+ * Handles the keyboard inputs.
+ */
 public class KeyboardHandler extends KeyAdapter {
 
 	private World world;
@@ -20,6 +22,19 @@ public class KeyboardHandler extends KeyAdapter {
 		this.player = player;
 	}
 
+	/**
+	 * Invoked when a key has been pressed.
+	 * <p>
+	 * Current supported key operations are:
+	 * <ul>
+	 *     <li>Arrows - moving the player</li>
+	 *     <li>WASD - moving the player</li>
+	 *     <li>Space - restarting the game when the player died or winning the game (when inside the door)</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @param e  the key event
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
@@ -46,6 +61,18 @@ public class KeyboardHandler extends KeyAdapter {
 		}
 	}
 
+	/**
+	 * Invoked when a key has been released.
+	 * <p>
+	 * Current supported key operations are:
+	 * <ul>
+	 *     <li>Left/right arrow - stop the player from walking</li>
+	 *     <li>A, D - stop the player from walking</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @param e  the key event
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {

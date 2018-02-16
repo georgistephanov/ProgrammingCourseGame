@@ -3,9 +3,11 @@ package bodies;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
 import org.jbox2d.common.Vec2;
-
 import static game.GameConstants.MovementDirections.*;
 
+/**
+ * This class represents the main player character of the game, which the user controls.
+ */
 public class Player extends CustomWalker implements StepListener, CollisionListener {
 
 	private static final Shape playerShape = new PolygonShape(1.7485f,-3.2175f,
@@ -23,6 +25,12 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private int coins = 0;
 	private int lives = 3;
 
+	/**
+	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the
+	 * step and collision listeners.
+	 *
+	 * @param world  the world in which this object will be created
+	 */
 	public Player(World world) {
 		super( new CustomWalker.Builder(world, playerShape)
 				.standingImage(standingImage)
@@ -36,14 +44,27 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		addCollisionListener(this);
 	}
 
+	/**
+	 * Gets the amount of coins this player has collected.
+	 *
+	 * @return  the amount of collected coins
+	 */
 	public int getCoins() {
 		return coins;
 	}
 
+	/**
+	 * Increment the amount of coins this player has collected by one.
+	 */
 	public void addCoin() {
 		setCoins(coins + 1);
 	}
 
+	/**
+	 * Set and print on the console the amount of coins this player has collected.
+	 *
+	 * @param coins  the amount of coins which are to be set
+	 */
 	private void setCoins(int coins) {
 		// TODO: Add an observer to notify the world to display the correct amount of coins
 
@@ -51,14 +72,27 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		System.out.println("Coins: " + coins);
 	}
 
+	/**
+	 * Gets the amount of lives this player has left.
+	 *
+	 * @return  the amount of lives left
+	 */
 	public int getLives() {
 		return lives;
 	}
 
+	/**
+	 * Increment the amount of lives this player has left.
+	 */
 	public void addLife() {
 		setLives(lives + 1);
 	}
 
+	/**
+	 * Set and print on the console the amount of lives this player has left.
+	 *
+	 * @param lives  the amount of lives which are to be set
+	 */
 	private void setLives(int lives) {
 		// TODO: Add an observer to notify the world to display the correct amount of lives
 
@@ -78,9 +112,19 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		}
 	}
 
+	/**
+	 * Empty implementation of the {@code CollisionListener} interface method.
+	 *
+	 * @param stepEvent  the current step's event
+	 */
 	@Override
 	public void preStep(StepEvent stepEvent) { }
 
+	/**
+	 * Displays the correct image if this player is not walking based on whether it is jumping, falling or not moving.
+	 *
+	 * @param stepEvent  the current step's event
+	 */
 	@Override
 	public void postStep(StepEvent stepEvent) {
 		Vec2 velocity = getLinearVelocity();
@@ -94,6 +138,11 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		}
 	}
 
+	/**
+	 * Stops the world if this player collides with an enemy.
+	 *
+	 * @param e  the event of the collision
+	 */
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
 			System.out.println("Ouch...");

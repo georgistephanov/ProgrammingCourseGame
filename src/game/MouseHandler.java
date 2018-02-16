@@ -6,6 +6,9 @@ import org.jbox2d.common.Vec2;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * This class is used to detect mouse presses on the screen in order to move the player with the mouse.
+ */
 public class MouseHandler extends MouseAdapter {
 
 	private Player player;
@@ -16,6 +19,12 @@ public class MouseHandler extends MouseAdapter {
 		this.player	= player;
 	}
 
+	/**
+	 * Calculates the angle between the positive horizontal X axis of the player and the mouse position and then
+	 * moves the player in the respective direction.
+	 *
+	 * @param e  the event of the mouse click
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// Calculate the degrees of the angle from the cosine
@@ -23,19 +32,25 @@ public class MouseHandler extends MouseAdapter {
 
 		// If the position of the mouse on the Y axis is higher than the player's position on the axis
 		if ( player.getPosition().y < view.viewToWorld(e.getPoint()).y ) {
+
 			if (degrees < 30) {
 				player.startWalking(GameConstants.VELOCITY);
-			} else if (degrees <= 60) {
+			}
+			else if (degrees <= 60) {
 				player.startWalking(GameConstants.VELOCITY);
 				player.jump(GameConstants.JUMP_SPEED);
-			} else if (degrees < 120) {
+			}
+			else if (degrees < 120) {
 				player.jump(GameConstants.JUMP_SPEED);
-			} else if (degrees <= 150) {
+			}
+			else if (degrees <= 150) {
 				player.startWalking( -(GameConstants.VELOCITY) );
 				player.jump(GameConstants.JUMP_SPEED);
-			} else {
+			}
+			else {
 				player.startWalking( -(GameConstants.VELOCITY) );
 			}
+
 		} else {
 			// The position of the mouse is below the player, therefore do not jump
 			if (degrees <= 90) {
@@ -47,10 +62,10 @@ public class MouseHandler extends MouseAdapter {
 	}
 
 	/**
-	 * Find the angle between the position of the mouse click and the player based on the player's positive
-	 * X axis.
-	 * @param e the event of the mouse click
-	 * @return the cosine of the angle between the player and the mouse position based on the player's positive X axis
+	 * Finds the angle between the position of the mouse click and the player based on the player's positive X axis.
+	 *
+	 * @param e  the event of the mouse click
+	 * @return  the cosine of the angle between the player and the mouse position based on the player's positive X axis
 	 */
 	private float findAngle(MouseEvent e) {
 		Vec2 origin = new Vec2(player.getPosition().x, player.getPosition().y);

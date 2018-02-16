@@ -5,9 +5,7 @@ import buildingblocks.*;
 import bodies.Player;
 import levels.Level;
 import levels.LevelFactory;
-
 import javax.swing.*;
-
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
 import static game.GameConstants.WINDOW_WIDTH;
@@ -21,11 +19,13 @@ public class Game {
 	/** A graphical display of the world (a specialised JPanel). */
 	private final UserView view = new UserView(world, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	// display the view in a frame
+	/** The frame in which the world will be displayed */
 	private final JFrame frame = new JFrame(WINDOW_TITLE);
 
+	/** A LevelFactory instance which is used to generate the levels */
 	private final LevelFactory levelFactory;
 
+	/** The player object which the user controls to play the game */
 	private Player player;
 
 	/** Initialise a new Game. */
@@ -33,7 +33,7 @@ public class Game {
 		// Set the frame and its settings
 		setFrame();
 
-		// make a character
+		// make the player
 		player = new Player(world);
 
 		// Get an instance of the LevelFactory
@@ -42,12 +42,14 @@ public class Game {
 		// Set the ground, walls and generate the first level
 		populateWorld();
 
-		// Register the KeyboardHandler
+		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));
 		view.addMouseListener(new MouseHandler(view, player));
+
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
 
+		// Start the world
 		world.start();
 	}
 
@@ -57,22 +59,35 @@ public class Game {
 	}
 
 	private void setFrame() {
+		// Set the default closing option of the frame
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		// Set this window to appear at its default location
 		frame.setLocationByPlatform(true);
+
+		// Add the view
 		frame.add(view);
+
+		// Prevent the frame from being resizable
 		frame.setResizable(false);
+
+		// Enlarge the frame to fit the preferred size and layouts of its subcomponents
 		frame.pack();
+
+		// Set the frame as visible
 		frame.setVisible(true);
 
+		// Show the grid
 		view.setGridResolution(1);
-		new DebugViewer(world, 1920, 1080);
+		// Show the debug viewer
+//		new DebugViewer(world, 1920, 1080);
 	}
 
 	private void populateWorld() {
 		// Render the floor and the walls
 		renderWalls();
 
-		// Generate level 1
+		// Generate and display level 1
 		Level levelOne = levelFactory.getLevel(1);
 		levelOne.displayPlatforms();
 		levelOne.displayEnemies();

@@ -5,6 +5,9 @@ import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
 import city.cs.engine.World;
 
+/**
+ * This class represents the flying enemies in the game.
+ */
 public class WingMan extends Enemy {
 	private static final Shape wingManShape = new PolygonShape(-2.95f,-1.97f, -2.94f,1.98f, 2.93f,1.99f, 2.93f,-1.99f);
 
@@ -16,6 +19,11 @@ public class WingMan extends Enemy {
 			new BodyImage("data/enemies/wingMan5.png", 4),
 	};
 
+	/**
+	 * Constructs this wing man and sets its gravity to 0 and the steps between image changes to 6.
+	 *
+	 * @param world  the world in which to be created
+	 */
 	public WingMan(World world) {
 		super( new Builder(world, wingManShape)
 				.standingImage(walkingImages[3])

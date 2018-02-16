@@ -5,11 +5,21 @@ import org.jbox2d.common.Vec2;
 
 import java.awt.*;
 
+/**
+ * A solid platform which is used as the main building block of the levels.
+ */
 public class Platform extends CustomSolidFixture {
 	private Edge leftEdge;
 	private Edge rightEdge;
 	private float totalWidth;
 
+	/**
+	 * Creates this platform and its edges.
+	 *
+	 * @param world  the world in which to be created
+	 * @param width  the width of the platform
+	 * @param height  the height of the platform
+	 */
 	public Platform (World world, float width, float height) {
 		super(new StaticBody(world), new BoxShape(width - .4f, height));
 		getBody().setFillColor(Color.DARK_GRAY);
@@ -20,9 +30,20 @@ public class Platform extends CustomSolidFixture {
 		totalWidth = width;
 	}
 
+	@Override
 	public void setPosition(float x, float y) {
 		getBody().setPosition(new Vec2(x, y));
 		leftEdge.setPosition(x - (totalWidth - .2f), y);
 		rightEdge.setPosition(x + (totalWidth - .2f), y);
+	}
+
+	/**
+	 * Represents an edge of this platform which has its friction set to 0 in order to prevent the user from sticking to it.
+	 */
+	private static class Edge extends CustomSolidFixture {
+		Edge(World world, float height) {
+			super (new StaticBody(world), new BoxShape(.18f, height));
+			setFriction(0);
+		}
 	}
 }
