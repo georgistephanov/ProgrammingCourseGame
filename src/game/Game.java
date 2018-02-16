@@ -3,9 +3,12 @@ package game;
 import city.cs.engine.*;
 import buildingblocks.*;
 import bodies.Player;
+import imagemanagers.BackgroundImage;
 import levels.Level;
 import levels.LevelFactory;
 import javax.swing.*;
+import java.awt.geom.Point2D;
+
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
 import static game.GameConstants.WINDOW_WIDTH;
@@ -51,6 +54,9 @@ public class Game {
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
 
+		// Set the background image of the world
+		new BackgroundImage(world).display();
+
 		// Start the world
 		world.start();
 	}
@@ -76,7 +82,7 @@ public class Game {
 		frame.add(view);
 
 		// Prevent the frame from being resizable
-		frame.setResizable(false);
+		frame.setResizable(true);
 
 		// Enlarge the frame to fit the preferred size and layouts of its subcomponents
 		frame.pack();
@@ -85,7 +91,7 @@ public class Game {
 		frame.setVisible(true);
 
 		// Show the grid
-		view.setGridResolution(1);
+//		view.setGridResolution(1);
 		// Show the debug viewer
 		//new DebugViewer(world, 1920, 1080);
 	}

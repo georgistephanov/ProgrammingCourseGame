@@ -7,12 +7,12 @@ public final class GameConstants {
 	/**
 	 * The width of the game window
 	 */
-	static final int WINDOW_WIDTH = 1920;
+	public static final int WINDOW_WIDTH = 1920;
 
 	/**
 	 * The height of the game window
 	 */
-	static final int WINDOW_HEIGHT = 1080;
+	public static final int WINDOW_HEIGHT = 1080;
 
 	/**
 	 * The title of the game window

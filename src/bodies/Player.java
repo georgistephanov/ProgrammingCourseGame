@@ -69,7 +69,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		// TODO: Add an observer to notify the world to display the correct amount of coins
 
 		this.coins = coins;
-		System.out.println("Coins: " + coins);
+		System.out.println("Lives: " + lives + "\tCoins: " + coins);
 	}
 
 	/**
@@ -89,6 +89,13 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	}
 
 	/**
+	 * Decrease the amount of lives this player has left.
+	 */
+	private void decreaseLives() {
+		setLives(lives - 1);
+	}
+
+	/**
 	 * Set and print on the console the amount of lives this player has left.
 	 *
 	 * @param lives  the amount of lives which are to be set
@@ -97,7 +104,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		// TODO: Add an observer to notify the world to display the correct amount of lives
 
 		this.lives = lives;
-		System.out.println("Lives: " + lives);
+		System.out.println("Lives: " + lives + "\tCoins: " + coins);
 	}
 
 	@Override
@@ -145,10 +152,17 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 */
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
-			System.out.println("Ouch...");
-			System.out.println("Press space to start over");
-
+			decreaseLives();
 			getWorld().stop();
+
+			if (lives > 0) {
+				System.out.println("Ouch...");
+				System.out.println("Press space to continue");
+			} else {
+				System.out.println("GAME OVER!");
+			}
+
+			System.out.println();
 		}
 	}
 }

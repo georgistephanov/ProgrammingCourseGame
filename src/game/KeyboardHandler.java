@@ -51,7 +51,7 @@ public class KeyboardHandler extends KeyAdapter {
 				player.jump(JUMP_SPEED);
 				break;
 			case KeyEvent.VK_SPACE:
-				if ( !world.isRunning() ) {
+				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
 				} else if (Door.userEntered) {
 					System.out.println("You win!");
