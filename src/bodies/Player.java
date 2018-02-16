@@ -113,7 +113,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	}
 
 	/**
-	 * Empty implementation of the {@code CollisionListener} interface method.
+	 * Empty implementation of the {@code StepListener} interface method.
 	 *
 	 * @param stepEvent  the current step's event
 	 */

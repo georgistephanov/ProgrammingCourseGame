@@ -13,8 +13,17 @@ import org.jbox2d.common.Vec2;
 
 import static game.GameConstants.MovementDirections.LEFT;
 
+/**
+ * Concrete implementation of the {@code AbstractLevel} abstract class for the first level of the game.
+ */
 public class Level1 extends AbstractLevel {
 
+	/**
+	 * Creates this object and positions the player and the door.
+	 *
+	 * @param world  the world in which to generate this level
+	 * @param player  the player associated with the game
+	 */
 	Level1(World world, Player player) {
 		super(world, player);
 

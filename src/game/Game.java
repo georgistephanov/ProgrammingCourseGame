@@ -28,7 +28,9 @@ public class Game {
 	/** The player object which the user controls to play the game */
 	private Player player;
 
-	/** Initialise a new Game. */
+	/**
+	 * Constructs a new instance of the Game and sets up the window and the world.
+	 */
 	private Game() {
 		// Set the frame and its settings
 		setFrame();
@@ -53,11 +55,16 @@ public class Game {
 		world.start();
 	}
 
-	/** Run the game. */
+	/**
+	 * The main method which starts the game by creating a new instance of this class.
+	 */
 	public static void main(String[] args) {
 		new Game();
 	}
 
+	/**
+	 * Sets the frame and its properties
+	 */
 	private void setFrame() {
 		// Set the default closing option of the frame
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -80,9 +87,12 @@ public class Game {
 		// Show the grid
 		view.setGridResolution(1);
 		// Show the debug viewer
-//		new DebugViewer(world, 1920, 1080);
+		//new DebugViewer(world, 1920, 1080);
 	}
 
+	/**
+	 * Renders the walls and loads the first level of the game.
+	 */
 	private void populateWorld() {
 		// Render the floor and the walls
 		renderWalls();
@@ -94,6 +104,9 @@ public class Game {
 		levelOne.displayCollectibles();
 	}
 
+	/**
+	 * Creates the ground and the left and right wall of the window.
+	 */
 	private void renderWalls() {
 		// Ground
 		new Platform(world, 50, 1).setPosition(0, -26);
