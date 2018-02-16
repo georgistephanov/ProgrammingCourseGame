@@ -3,8 +3,6 @@ package game;
 import bodies.Player;
 import city.cs.engine.UserView;
 import org.jbox2d.common.Vec2;
-
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,15 +11,17 @@ public class MouseHandler extends MouseAdapter {
 	private Player player;
 	private UserView view;
 
-	public MouseHandler(UserView view, Player player) {
+	MouseHandler(UserView view, Player player) {
 		this.view = view;
 		this.player	= player;
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		// Calculate the degrees of the angle from the cosine
 		int degrees = (int) Math.toDegrees(Math.acos(findAngle(e)));
 
+		// If the position of the mouse on the Y axis is higher than the player's position on the axis
 		if ( player.getPosition().y < view.viewToWorld(e.getPoint()).y ) {
 			if (degrees < 30) {
 				player.startWalking(GameConstants.VELOCITY);
@@ -37,6 +37,7 @@ public class MouseHandler extends MouseAdapter {
 				player.startWalking( -(GameConstants.VELOCITY) );
 			}
 		} else {
+			// The position of the mouse is below the player, therefore do not jump
 			if (degrees <= 90) {
 				player.startWalking(GameConstants.VELOCITY);
 			} else {
@@ -45,6 +46,12 @@ public class MouseHandler extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Find the angle between the position of the mouse click and the player based on the player's positive
+	 * X axis.
+	 * @param e the event of the mouse click
+	 * @return the cosine of the angle between the player and the mouse position based on the player's positive X axis
+	 */
 	private float findAngle(MouseEvent e) {
 		Vec2 origin = new Vec2(player.getPosition().x, player.getPosition().y);
 

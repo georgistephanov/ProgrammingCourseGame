@@ -7,7 +7,9 @@ import bodies.enemies.SpikeMan;
 import bodies.enemies.WingMan;
 import buildingblocks.Platform;
 import buildingblocks.Wall;
+import city.cs.engine.Body;
 import city.cs.engine.World;
+import org.jbox2d.common.Vec2;
 
 import static game.GameConstants.MovementDirections.LEFT;
 
@@ -72,5 +74,19 @@ public class Level1 extends AbstractLevel {
 		for (int i = 1; i <= 10; i++) {
 			new Coin(world).setPosition(3.75f * i, -23.5f);
 		}
+	}
+
+	@Override
+	public void resetLevel() {
+		for (Body body : world.getDynamicBodies()) {
+			if ( !(body instanceof Player) ) {
+				body.destroy();
+			} else {
+				((Player) body).setLinearVelocity(new Vec2(0, 0));
+				System.out.println(body.getLinearVelocity());
+			}
+		}
+
+		displayEnemies();
 	}
 }

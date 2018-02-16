@@ -2,6 +2,7 @@ package game;
 
 import bodies.Player;
 import buildingblocks.Door;
+import city.cs.engine.World;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -11,9 +12,11 @@ import static game.GameConstants.VELOCITY;
 
 public class KeyboardHandler extends KeyAdapter {
 
+	private World world;
 	private Player player;
 
-	KeyboardHandler(Player player) {
+	KeyboardHandler(World world, Player player) {
+		this.world = world;
 		this.player = player;
 	}
 
@@ -33,8 +36,11 @@ public class KeyboardHandler extends KeyAdapter {
 				player.jump(JUMP_SPEED);
 				break;
 			case KeyEvent.VK_SPACE:
-				if (Door.userEntered) {
-					System.out.println("You won!");
+				if ( !world.isRunning() ) {
+					world.start();
+				} else if (Door.userEntered) {
+					System.out.println("You win!");
+					world.stop();
 				}
 			default:
 		}

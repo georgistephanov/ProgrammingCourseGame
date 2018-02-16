@@ -3,6 +3,7 @@ package bodies;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
 import org.jbox2d.common.Vec2;
+
 import static game.GameConstants.MovementDirections.*;
 
 public class Player extends CustomWalker implements StepListener, CollisionListener {
@@ -20,7 +21,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	};
 
 	private int coins = 0;
-	private int lifes = 3;
+	private int lives = 3;
 
 	public Player(World world) {
 		super( new CustomWalker.Builder(world, playerShape)
@@ -31,8 +32,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 
 		setGravityScale(2);
 
-		addCollisionListener(this);
 		world.addStepListener(this);
+		addCollisionListener(this);
 	}
 
 	public int getCoins() {
@@ -50,19 +51,19 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		System.out.println("Coins: " + coins);
 	}
 
-	public int getLifes() {
-		return lifes;
+	public int getLives() {
+		return lives;
 	}
 
 	public void addLife() {
-		setLifes(lifes + 1);
+		setLives(lives + 1);
 	}
 
-	private void setLifes(int lifes) {
-		// TODO: Add an observer to notify the world to display the correct amount of lifes
+	private void setLives(int lives) {
+		// TODO: Add an observer to notify the world to display the correct amount of lives
 
-		this.lifes = lifes;
-		System.out.println("Lifes: " + lifes);
+		this.lives = lives;
+		System.out.println("Lives: " + lives);
 	}
 
 	@Override
@@ -95,7 +96,10 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
-			System.out.println("Ouch");
+			System.out.println("Ouch...");
+			System.out.println("Press space to start over");
+
+			getWorld().stop();
 		}
 	}
 }
