@@ -8,8 +8,8 @@ import city.cs.engine.World;
  */
 public class LevelFactory {
 	private static LevelFactory instance;
-	private World world;
-	private Player player;
+	private final World world;
+	private final Player player;
 
 	/**
 	 * A private constructor to enforce a singleton object.

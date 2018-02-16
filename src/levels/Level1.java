@@ -25,7 +25,7 @@ public class Level1 extends AbstractLevel {
 	 * @param player  the player associated with the game
 	 */
 	Level1(World world, Player player) {
-		super(world, player);
+		super(world);
 
 		player.setPosition(-45, -20);
 		door.setPosition(44.25f, -21.5f);

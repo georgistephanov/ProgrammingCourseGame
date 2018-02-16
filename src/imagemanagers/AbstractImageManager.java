@@ -5,10 +5,10 @@ import city.cs.engine.BodyImage;
 
 /**
  * This class provides an abstract implementation of the {@code ImageManager} interface.
- * It will be subclassed by the different kinds of concrete image managers.
+ * It will be sub-classed by the different kinds of concrete image managers.
  */
 public abstract class AbstractImageManager implements ImageManager {
-	Body body;
+	final Body body;
 	BodyImage[] images;
 
 	/** The current game step modulo the amount of steps between image changes. Range: [0, stepCounter)

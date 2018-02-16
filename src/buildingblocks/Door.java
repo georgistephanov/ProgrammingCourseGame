@@ -9,9 +9,9 @@ import city.cs.engine.*;
  */
 public class Door extends CustomSensor {
 
-	private static Shape doorShape = new PolygonShape(-2.75f,-3.48f, -2.76f,1.41f, -2.06f,2.66f, -0.83f,3.49f,
+	private static final Shape DOOR_SHAPE = new PolygonShape(-2.75f,-3.48f, -2.76f,1.41f, -2.06f,2.66f, -0.83f,3.49f,
 			0.86f,3.47f, 1.9f,2.8f, 2.76f,1.54f, 2.75f,-3.48f);
-	private static BodyImage doorImage = new BodyImage("data/other/door.png", 7);
+	private static final BodyImage DOOR_IMAGE = new BodyImage("data/other/door.png", 7);
 
 	/**
 	 * Flag variable indicating whether the player is currently in a contact with the door.
@@ -24,8 +24,8 @@ public class Door extends CustomSensor {
 	 * @param world  the world in which to be created
 	 */
 	public Door(World world) {
-		super(new StaticBody(world), doorShape);
-		getBody().addImage(doorImage);
+		super(new StaticBody(world), DOOR_SHAPE);
+		getBody().addImage(DOOR_IMAGE);
 	}
 
 	/**
@@ -33,6 +33,7 @@ public class Door extends CustomSensor {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			System.out.println("Press SPACE to win...");
@@ -45,6 +46,7 @@ public class Door extends CustomSensor {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void endContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			userEntered = false;

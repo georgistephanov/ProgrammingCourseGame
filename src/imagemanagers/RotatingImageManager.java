@@ -9,7 +9,7 @@ import city.cs.engine.StepListener;
  * Concrete implementation of the {@code AbstractImageManager} for images which rotate in one position.
  * This class is typically used for collectibles.
  */
-public class RotatingImageManager extends AbstractImageManager implements StepListener {
+public final class RotatingImageManager extends AbstractImageManager implements StepListener {
 
 	public RotatingImageManager(Body body, BodyImage[] images) {
 		super(body, images);
@@ -18,6 +18,7 @@ public class RotatingImageManager extends AbstractImageManager implements StepLi
 	/**
 	 * Registers this {@code StepListener} to the world so that it starts displaying the body images.
 	 */
+	@Override
 	public void display() {
 		body.getWorld().addStepListener(this);
 	}

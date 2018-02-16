@@ -9,8 +9,8 @@ import imagemanagers.SingleImageManager;
  */
 public class Life extends Collectible {
 
-	private static final Shape lifeShape = new CircleShape(1);
-	private static final BodyImage lifeImage = new BodyImage("data/collectibles/life.png", 2.5f);
+	private static final Shape LIFE_SHAPE = new CircleShape(1);
+	private static final BodyImage LIFE_IMAGE = new BodyImage("data/collectibles/life.png", 2.5f);
 
 	/**
 	 * Constructs this object and creates its {@code ImageManager} as a {@code SingleImageManager} object.
@@ -18,9 +18,9 @@ public class Life extends Collectible {
 	 * @param world  the world in which this object will be created
 	 */
 	public Life(World world) {
-		super(world, lifeShape);
+		super(world, LIFE_SHAPE);
 
-		imageManager = new SingleImageManager(getBody(), lifeImage);
+		imageManager = new SingleImageManager(getBody(), LIFE_IMAGE);
 		imageManager.display();
 	}
 
@@ -30,6 +30,7 @@ public class Life extends Collectible {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			((Player) e.getContactBody()).addLife();

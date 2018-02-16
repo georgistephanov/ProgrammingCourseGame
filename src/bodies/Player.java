@@ -10,14 +10,14 @@ import static game.GameConstants.MovementDirections.*;
  */
 public class Player extends CustomWalker implements StepListener, CollisionListener {
 
-	private static final Shape playerShape = new PolygonShape(1.7485f,-3.2175f,
+	private static final Shape PLAYER_SHAPE = new PolygonShape(1.7485f,-3.2175f,
 			1.6965f,2.366f, 1.5015f,2.457f, -0.8125f,1.846f, -1.69f,0.871f,
 			-1.7745f,-1.976f, -1.339f,-3.2305f);
 
-	private static BodyImage standingImage = new BodyImage("data/player/player_stand.png", 6.5f);
-	private static BodyImage jumpingImage = new BodyImage("data/player/player_jump.png", 6.5f);
-	private static BodyImage fallingImage = new BodyImage("data/player/player_fall.png", 6.5f);
-	private static BodyImage [] walkingImages = {
+	private static final BodyImage STANDING_IMAGE = new BodyImage("data/player/player_stand.png", 6.5f);
+	private static final BodyImage JUMPING_IMAGE = new BodyImage("data/player/player_jump.png", 6.5f);
+	private static final BodyImage FALLING_IMAGE = new BodyImage("data/player/player_fall.png", 6.5f);
+	private static final BodyImage [] WALKING_IMAGES = {
 			new BodyImage("data/player/player_walk1.png", 6.5f),
 			new BodyImage("data/player/player_walk2.png", 6.5f)
 	};
@@ -32,11 +32,11 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 * @param world  the world in which this object will be created
 	 */
 	public Player(World world) {
-		super( new CustomWalker.Builder(world, playerShape)
-				.standingImage(standingImage)
-				.walkingImages(walkingImages)
-				.jumpingImage(jumpingImage)
-				.fallingImage(fallingImage) );
+		super( new CustomWalker.Builder(world, PLAYER_SHAPE)
+				.standingImage(STANDING_IMAGE)
+				.walkingImages(WALKING_IMAGES)
+				.jumpingImage(JUMPING_IMAGE)
+				.fallingImage(FALLING_IMAGE) );
 
 		setGravityScale(2);
 
@@ -150,6 +150,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 *
 	 * @param e  the event of the collision
 	 */
+	@Override
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
 			decreaseLives();

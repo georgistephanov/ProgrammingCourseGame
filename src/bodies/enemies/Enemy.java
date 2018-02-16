@@ -29,7 +29,7 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 		builder.world.addStepListener(this);
 	}
 
-	void setXVelocity(float xVelocity) {
+	final void setXVelocity(float xVelocity) {
 		this.xVelocity = xVelocity;
 	}
 
@@ -39,7 +39,7 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 	 * @param movementDirection  the direction in which this object will be moving
 	 * @return  this object
 	 */
-	public Enemy setMovementDirection(MovementDirections movementDirection) {
+	public final Enemy setMovementDirection(MovementDirections movementDirection) {
 		if ( (movementDirection == LEFT && xVelocity > 0) ||
 				(movementDirection == RIGHT && xVelocity < 0) ) {
 			xVelocity = -xVelocity;
@@ -53,7 +53,7 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 	 *
 	 * @param stepsChangeImage  the amount of steps before changing image's state
 	 */
-	void setChangeImagePerSteps(int stepsChangeImage) {
+	final void setChangeImagePerSteps(int stepsChangeImage) {
 		this.stepsChangeImage = stepsChangeImage;
 	}
 
@@ -63,6 +63,7 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 	 *
 	 * @param e  the collision event
 	 */
+	@Override
 	public void collide(CollisionEvent e) {
 		if (e.getOtherFixture() instanceof Platform) {
 			return;

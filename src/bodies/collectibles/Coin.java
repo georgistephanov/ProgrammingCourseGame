@@ -9,13 +9,13 @@ import imagemanagers.RotatingImageManager;
  */
 public class Coin extends Collectible {
 
-	private static final Shape coinShape = new CircleShape(1);
+	private static final Shape COIN_SHAPE = new CircleShape(1);
 
 	/**
 	 * Array of {@code BodyImage} objects to represent the different images of the coin.
 	 * The images represent the four states of rotation of each coin.
 	 */
-	private static final BodyImage [] coinImages = {
+	private static final BodyImage [] COIN_IMAGES = {
 			new BodyImage("data/collectibles/gold_1.png", 2.5f),
 			new BodyImage("data/collectibles/gold_2.png", 2.5f),
 			new BodyImage("data/collectibles/gold_3.png", 2.5f),
@@ -29,9 +29,9 @@ public class Coin extends Collectible {
 	 * @param world  the world in which this coin will be created
 	 */
 	public Coin(World world) {
-		super(world, coinShape);
+		super(world, COIN_SHAPE);
 
-		imageManager = new RotatingImageManager(getBody(), coinImages);
+		imageManager = new RotatingImageManager(getBody(), COIN_IMAGES);
 		imageManager.setStepCounter(6);
 		imageManager.display();
 	}
@@ -42,6 +42,7 @@ public class Coin extends Collectible {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			((Player) e.getContactBody()).addCoin();

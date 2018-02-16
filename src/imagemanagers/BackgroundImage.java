@@ -5,9 +5,9 @@ import city.cs.engine.*;
 /**
  * This class is used to display the background image of the world.
  */
-public class BackgroundImage extends GhostlyFixture implements ImageManager {
+public final class BackgroundImage extends GhostlyFixture implements ImageManager {
 
-	private static BodyImage backgroundImage = new BodyImage("data/other/background.png", 80);
+	private static final BodyImage BACKGROUND_IMAGE = new BodyImage("data/other/background.png", 80);
 
 	public BackgroundImage(World world) {
 		super(new StaticBody(world), new BoxShape(1, 1));
@@ -15,6 +15,6 @@ public class BackgroundImage extends GhostlyFixture implements ImageManager {
 
 	@Override
 	public void display() {
-		getBody().addImage(backgroundImage);
+		getBody().addImage(BACKGROUND_IMAGE);
 	}
 }

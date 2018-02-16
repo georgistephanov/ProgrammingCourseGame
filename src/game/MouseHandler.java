@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
  */
 public class MouseHandler extends MouseAdapter {
 
-	private Player player;
-	private UserView view;
+	private final Player player;
+	private final UserView view;
 
 	MouseHandler(UserView view, Player player) {
 		this.view = view;
@@ -22,6 +22,10 @@ public class MouseHandler extends MouseAdapter {
 	/**
 	 * Calculates the angle between the positive horizontal X axis of the player and the mouse position and then
 	 * moves the player in the respective direction.
+	 * If the angle is in the range [30, 60] degrees in either direction (left or right) the player starts walking
+	 * and jumps simultaneously.
+	 * If the mouse click is under the player, he will start walking but not jump even if the
+	 * mouse click is in the above range.
 	 *
 	 * @param e  the event of the mouse click
 	 */

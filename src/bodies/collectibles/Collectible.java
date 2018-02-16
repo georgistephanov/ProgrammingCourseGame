@@ -31,6 +31,7 @@ public abstract class Collectible extends CustomSensor {
 	 * @param x  this object's position on the X axis
 	 * @param y  this object's position on the X axis
 	 */
+	@Override
 	public void setPosition(float x, float y) {
 		getBody().setPosition(new Vec2(x, y));
 	}

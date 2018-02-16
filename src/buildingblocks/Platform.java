@@ -9,9 +9,9 @@ import java.awt.*;
  * A solid platform which is used as the main building block of the levels.
  */
 public class Platform extends CustomSolidFixture {
-	private Edge leftEdge;
-	private Edge rightEdge;
-	private float totalWidth;
+	private final Edge leftEdge;
+	private final Edge rightEdge;
+	private final float totalWidth;
 
 	/**
 	 * Creates this platform and its edges.

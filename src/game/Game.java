@@ -29,7 +29,7 @@ public class Game {
 	private final LevelFactory levelFactory;
 
 	/** The player object which the user controls to play the game */
-	private Player player;
+	private final Player player;
 
 	/**
 	 * Constructs a new instance of the Game and sets up the window and the world.

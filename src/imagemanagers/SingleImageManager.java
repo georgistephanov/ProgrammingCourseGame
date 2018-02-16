@@ -6,7 +6,7 @@ import city.cs.engine.BodyImage;
 /**
  * A concrete implementation of the {@code AbstractImageManager} for bodies with a single image resource.
  */
-public class SingleImageManager extends AbstractImageManager {
+public final class SingleImageManager extends AbstractImageManager {
 
 	public SingleImageManager(Body body, BodyImage image)  {
 		super( body, new BodyImage[] {image} );

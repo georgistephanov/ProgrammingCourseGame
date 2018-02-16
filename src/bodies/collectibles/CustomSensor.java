@@ -37,6 +37,7 @@ public class CustomSensor extends Sensor implements SensorListener {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void beginContact(SensorEvent e) {}
 
 	/**
@@ -45,5 +46,6 @@ public class CustomSensor extends Sensor implements SensorListener {
 	 *
 	 * @param e  the contact event
 	 */
+	@Override
 	public void endContact(SensorEvent e) {}
 }

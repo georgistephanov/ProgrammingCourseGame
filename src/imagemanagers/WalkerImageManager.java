@@ -9,7 +9,7 @@ import static game.GameConstants.MovementDirections.*;
  * A concrete implementation of the {@code ImageManager} interface.
  * This class is used as an {@code ImageManager} for {@code CustomWalker} objects.
  */
-public class WalkerImageManager implements ImageManager {
+public final class WalkerImageManager implements ImageManager {
 
 	private final Body body;
 	private final BodyImage standingImage;
