@@ -91,9 +91,9 @@ public class Game {
 		frame.setVisible(true);
 
 		// Show the grid
-//		view.setGridResolution(1);
+		view.setGridResolution(1);
 		// Show the debug viewer
-		//new DebugViewer(world, 1920, 1080);
+		new DebugViewer(world, 1920, 1080);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class Game {
 		renderWalls();
 
 		// Generate and display level 1
-		Level levelOne = levelFactory.getLevel(1);
+		Level levelOne = levelFactory.getLevel(2);
 		levelOne.displayPlatforms();
 		levelOne.displayEnemies();
 		levelOne.displayCollectibles();

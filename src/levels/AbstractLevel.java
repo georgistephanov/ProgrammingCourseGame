@@ -1,7 +1,11 @@
 package levels;
 
 import buildingblocks.Door;
+import buildingblocks.Platform;
 import city.cs.engine.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract implementation of the Level class which keeps references to the {@code World},

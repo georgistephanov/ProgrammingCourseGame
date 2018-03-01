@@ -49,6 +49,8 @@ public class LevelFactory {
 		switch(level) {
 			case 1:
 				return new Level1(world, player);
+			case 2:
+				return new Level2(world, player);
 			default:
 				return null;
 		}

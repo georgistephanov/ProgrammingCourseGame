@@ -92,7 +92,6 @@ public class Level1 extends AbstractLevel {
 				body.destroy();
 			} else {
 				((Player) body).setLinearVelocity(new Vec2(0, 0));
-				System.out.println(body.getLinearVelocity());
 			}
 		}
 

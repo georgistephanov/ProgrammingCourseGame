@@ -23,4 +23,13 @@ public class Wall extends CustomSolidFixture {
 		getBody().setFillColor(Color.DARK_GRAY);
 		setFriction(0);
 	}
+
+	/**
+	 * Sets the fill colour of the body
+	 *
+	 * @param color  the fill colour of the body
+	 */
+	void setFillColor(Color color) {
+		getBody().setFillColor(color);
+	}
 }
