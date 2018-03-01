@@ -25,7 +25,10 @@ public class Platform extends CustomSolidFixture {
 		getBody().setFillColor(Color.DARK_GRAY);
 
 		leftEdge = new Edge(world, height);
+		leftEdge.getBody().setFillColor(Color.DARK_GRAY);
+
 		rightEdge = new Edge(world, height);
+		rightEdge.getBody().setFillColor(Color.DARK_GRAY);
 
 		totalWidth = width;
 	}

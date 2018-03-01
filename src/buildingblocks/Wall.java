@@ -25,6 +25,20 @@ public class Wall extends CustomSolidFixture {
 	}
 
 	/**
+	 * Creates this object with a custom half width, sets its friction to 0 and its colour to {@code Color.DARK_GRAY}
+	 * This method is package private as it is to be used by {@code UnlockableDoor}.
+	 *
+	 * @param world  the world in which to be created
+	 * @param width  the width of the wall
+	 * @param height  the height of the wall
+	 */
+	Wall(World world, float width, float height) {
+		super (new StaticBody(world), new BoxShape(width, height));
+		getBody().setFillColor(Color.DARK_GRAY);
+		setFriction(0);
+	}
+
+	/**
 	 * Sets the fill colour of the body
 	 *
 	 * @param color  the fill colour of the body

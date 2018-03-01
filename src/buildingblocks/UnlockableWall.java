@@ -11,18 +11,49 @@ import java.awt.*;
  */
 public class UnlockableWall extends Wall {
 	private Key key;
+	private final float halfHeight;
 
 	/**
-	 * Creates this wall, sets its fill colour and creates a {@code Key} object which will be associated with this wall.
+	 * Enumeration of all possible ways that the door can be unlocked.
+	 * <ul>
+	 *     <li><b>MOVE_UP</b>  moves the wall upwards by 3/4 of its halfHeight</li>
+	 *     <li><b>HIDE</b>  destroys the wall from the world</li>
+	 * </ul>
+	 */
+	public enum Unlocking {
+		MOVE_UP, HIDE
+	}
+
+	private Unlocking unlockingType = Unlocking.MOVE_UP;
+
+	/**
+	 * Creates a wall with half width of 1 meter, sets its fill colour and creates a {@code Key} object which will be associated with this wall.
 	 *
 	 * @param world  the world in which to be created
-	 * @param height  the height of the wall
+	 * @param height  the halfHeight of the wall
 	 * @param color  the fill colour of the wall
 	 */
 	public UnlockableWall(World world, float height, Color color) {
 		super(world, height);
 		setFillColor(color);
 
+		halfHeight = height;
+		key = new Key(world, this);
+	}
+
+	/**
+	 * Creates a wall with custom specified width, sets its fill colour and creates a {@code Key} object which will be associated with this wall.
+	 *
+	 * @param world  the world in which to be created
+	 * @param width  the width of the wall
+	 * @param height  the halfHeight of the wall
+	 * @param color  the fill colour of the wall
+	 */
+	public UnlockableWall(World world, float width, float height, Color color) {
+		super(world, width, height);
+		setFillColor(color);
+
+		halfHeight = height;
 		key = new Key(world, this);
 	}
 
@@ -35,9 +66,26 @@ public class UnlockableWall extends Wall {
 	public void setKeyPosition(float x, float y) { key.getBody().setPosition(new Vec2(x, y)); }
 
 	/**
+	 * Sets the unlocking type of this object.
+	 *
+	 * @param unlockingType  the unlocking type
+	 */
+	public void setUnlockingType(Unlocking unlockingType) {
+		this.unlockingType = unlockingType;
+	}
+
+	/**
 	 * Unlocks the door so that it is no longer an obstacle for the player.
 	 */
 	public void unlock() {
-		getBody().move(new Vec2(0, 9));
+		switch (unlockingType) {
+			case MOVE_UP:
+				getBody().move(new Vec2(0, 6 * halfHeight / 4));
+				break;
+			case HIDE:
+				getBody().destroy();
+				destroy();
+				break;
+		}
 	}
 }
