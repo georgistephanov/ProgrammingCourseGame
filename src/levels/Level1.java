@@ -8,7 +8,9 @@ import bodies.enemies.WingMan;
 import buildingblocks.Platform;
 import buildingblocks.Wall;
 import city.cs.engine.Body;
+import city.cs.engine.BodyImage;
 import city.cs.engine.World;
+import imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 
 import static game.GameConstants.MovementDirections.LEFT;
@@ -29,6 +31,8 @@ public class Level1 extends AbstractLevel {
 
 		player.setPosition(-45, -20);
 		door.setPosition(44.25f, -21.5f);
+
+		levelLabel.firePropertyChange("amount", levelLabel.getAmount(), 1);
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class Level1 extends AbstractLevel {
 		new Platform(world, 4, .5f).setPosition(-10, 13);
 
 		// Mid wall
-		new Wall(world, 20).setPosition(0, -5f);
+//		new Wall(world, 20).setPosition(0, -5f);
 
 		// Right-hand side platforms
 		new Platform(world, 18, .5f).setPosition(29, 18);

@@ -9,7 +9,9 @@ import buildingblocks.Platform;
 import buildingblocks.UnlockableWall;
 import buildingblocks.Wall;
 import city.cs.engine.Body;
+import city.cs.engine.BodyImage;
 import city.cs.engine.World;
+import imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 import java.awt.*;
 
@@ -32,6 +34,8 @@ public class Level2 extends AbstractLevel {
 
 		player.setPosition(-45, -20);
 		door.setPosition(44.25f, -21.5f);
+
+		levelLabel.firePropertyChange("amount", levelLabel.getAmount(), 2);
 	}
 
 	@Override

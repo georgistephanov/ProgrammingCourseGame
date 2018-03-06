@@ -27,8 +27,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private int lives = 3;
 
 	private final String propertyName = StatusPanel.CollectiblesJLabel.PROPERTY_NAME;
-	private final StatusPanel.CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesTextField();
-	private final StatusPanel.CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsTextField();
+	private final StatusPanel.CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesLabel();
+	private final StatusPanel.CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsLabel();
 
 	/**
 	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the

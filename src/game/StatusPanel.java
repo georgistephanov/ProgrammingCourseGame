@@ -12,8 +12,9 @@ public final class StatusPanel extends JPanel {
 	private Font arcadeFont = new JLabel().getFont().deriveFont(56f);
 
 	private final JPanel infoPanel = new JPanel();
-	private final CollectiblesJLabel livesTextField = new CollectiblesJLabel("Lives");
-	private final CollectiblesJLabel coinsTextField = new CollectiblesJLabel("Coins");
+	private final CollectiblesJLabel levelLabel = new CollectiblesJLabel("Level");
+	private final CollectiblesJLabel livesLabel = new CollectiblesJLabel("Lives");
+	private final CollectiblesJLabel coinsLabel = new CollectiblesJLabel("Coins");
 
 	/**
 	 * Returns the singleton instance of the StatusPanel.
@@ -38,8 +39,11 @@ public final class StatusPanel extends JPanel {
 			e.printStackTrace();
 		}
 
-		initLabel(livesTextField);
-		initLabel(coinsTextField);
+		initLabel(levelLabel);
+		add(levelLabel, BorderLayout.WEST);
+
+		initLabel(livesLabel);
+		initLabel(coinsLabel);
 		initInfoPanel();
 	}
 
@@ -52,18 +56,22 @@ public final class StatusPanel extends JPanel {
 
 	private void initInfoPanel() {
 		infoPanel.setBackground(new Color(0, 0, 0, 0));
-		infoPanel.add(livesTextField);
-		infoPanel.add(coinsTextField);
+		infoPanel.add(livesLabel);
+		infoPanel.add(coinsLabel);
 
 		add(infoPanel, BorderLayout.EAST);
 	}
 
-	public CollectiblesJLabel getLivesTextField() {
-		return livesTextField;
+	public CollectiblesJLabel getLevelLabel() {
+		return levelLabel;
 	}
 
-	public CollectiblesJLabel getCoinsTextField() {
-		return coinsTextField;
+	public CollectiblesJLabel getLivesLabel() {
+		return livesLabel;
+	}
+
+	public CollectiblesJLabel getCoinsLabel() {
+		return coinsLabel;
 	}
 
 	/**

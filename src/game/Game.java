@@ -6,6 +6,8 @@ import bodies.Player;
 import imagemanagers.BackgroundImage;
 import levels.Level;
 import levels.LevelFactory;
+import levels.LevelManager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -27,9 +29,6 @@ public class Game {
 	/** The window in which the world will be displayed */
 	private final JFrame window = new JFrame(WINDOW_TITLE);
 
-	/** A LevelFactory instance which is used to generate the levels */
-	private final LevelFactory levelFactory;
-
 	/** The player object which the user controls to play the game */
 	private final Player player;
 
@@ -43,11 +42,9 @@ public class Game {
 		// make the player
 		player = new Player(world);
 
-		// Get an instance of the LevelFactory
-		levelFactory = LevelFactory.getInstance(world, player);
-
-		// Set the ground, walls and generate the first level
-		populateWorld();
+		// Initialise the LevelManager singleton object and generate and display the first level
+		LevelManager.initialiseLevelManager(world, player);
+		LevelManager.displayLevel(1);
 
 		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));
@@ -55,9 +52,6 @@ public class Game {
 
 		// Request focus to allow the keyboard listener to detect input
 		view.requestFocus();
-
-		// Set the background image of the world
-		new BackgroundImage(world).display();
 
 		// Start the world
 		world.start();
@@ -89,7 +83,7 @@ public class Game {
 		// Prevent the window from being resizable
 		window.setResizable(true);
 
-		// Enlarge the window to fit the preferred size and layouts of its subcomponents
+		// Enlarge the window to fit the preferred size and layouts of its sub-components
 		window.pack();
 
 		// Set the window as visible
@@ -98,34 +92,6 @@ public class Game {
 		// Show the grid
 //		view.setGridResolution(1);
 		// Show the debug viewer
-//		new DebugViewer(world, 1920, 1080);
-	}
-
-	/**
-	 * Renders the walls and loads the first level of the game.
-	 */
-	private void populateWorld() {
-		// Render the floor and the walls
-		renderWalls();
-
-		// Generate and display level 1
-		Level levelOne = levelFactory.getLevel(2);
-		levelOne.displayPlatforms();
-		levelOne.displayEnemies();
-		levelOne.displayCollectibles();
-	}
-
-	/**
-	 * Creates the ground and the left and right wall of the window.
-	 */
-	private void renderWalls() {
-		// Ground
-		new Platform(world, 50, 1).setPosition(0, -26);
-
-		// Left wall
-		new Wall(world, 28).setPosition(-48, 0);
-
-		// Right wall
-		new Wall(world, 28).setPosition(48, 0);
+		new DebugViewer(world, 1920, 1080);
 	}
 }

@@ -45,7 +45,7 @@ public class LevelFactory {
 	 * @param level  the level number of the level which is to be created
 	 * @return  the level associated with the parameter, null if such level doesn't exist
 	 */
-	public Level getLevel(int level) {
+	Level getLevel(int level) {
 		switch(level) {
 			case 1:
 				return new Level1(world, player);

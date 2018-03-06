@@ -3,6 +3,8 @@ package game;
 import bodies.Player;
 import buildingblocks.Door;
 import city.cs.engine.World;
+import imagemanagers.BackgroundImage;
+import levels.LevelManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -54,8 +56,15 @@ public class KeyboardHandler extends KeyAdapter {
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
 				} else if (Door.userEntered) {
-					System.out.println("You win!");
-					world.stop();
+					int currentLevel = LevelManager.getCurrentLevel();
+
+					if (currentLevel < LevelManager.MAX_LEVEL) {
+						LevelManager.displayLevel(currentLevel + 1);
+						Door.userEntered = false;
+					} else {
+						System.out.println("You win!");
+						world.stop();
+					}
 				}
 			default:
 		}
