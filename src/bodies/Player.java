@@ -2,6 +2,7 @@ package bodies;
 
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
+import game.StatusPanel;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
@@ -25,6 +26,10 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private int coins = 0;
 	private int lives = 3;
 
+	private final String propertyName = StatusPanel.CollectiblesJLabel.PROPERTY_NAME;
+	private final StatusPanel.CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesTextField();
+	private final StatusPanel.CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsTextField();
+
 	/**
 	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the
 	 * step and collision listeners.
@@ -42,34 +47,16 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 
 		world.addStepListener(this);
 		addCollisionListener(this);
-	}
 
-	/**
-	 * Gets the amount of coins this player has collected.
-	 *
-	 * @return  the amount of collected coins
-	 */
-	public int getCoins() {
-		return coins;
+		livesLabel.firePropertyChange(propertyName, livesLabel.getAmount(), lives);
+		coinsLabel.firePropertyChange(propertyName, coinsLabel.getAmount(), coins);
 	}
 
 	/**
 	 * Increment the amount of coins this player has collected by one.
 	 */
 	public void addCoin() {
-		setCoins(coins + 1);
-	}
-
-	/**
-	 * Set and print on the console the amount of coins this player has collected.
-	 *
-	 * @param coins  the amount of coins which are to be set
-	 */
-	private void setCoins(int coins) {
-		// TODO: Add an observer to notify the world to display the correct amount of coins
-
-		this.coins = coins;
-		System.out.println("Lives: " + lives + "\tCoins: " + coins);
+		coinsLabel.firePropertyChange(propertyName, coinsLabel.getAmount(), ++coins);
 	}
 
 	/**
@@ -85,14 +72,14 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 * Increment the amount of lives this player has left.
 	 */
 	public void addLife() {
-		setLives(lives + 1);
+		setLives(++lives);
 	}
 
 	/**
 	 * Decrease the amount of lives this player has left.
 	 */
 	private void decreaseLives() {
-		setLives(lives - 1);
+		setLives(--lives);
 	}
 
 	/**
@@ -101,10 +88,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 * @param lives  the amount of lives which are to be set
 	 */
 	private void setLives(int lives) {
-		// TODO: Add an observer to notify the world to display the correct amount of lives
-
-		this.lives = lives;
-		System.out.println("Lives: " + lives + "\tCoins: " + coins);
+		livesLabel.firePropertyChange(propertyName, livesLabel.getAmount(), lives);
 	}
 
 	@Override

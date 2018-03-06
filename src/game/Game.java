@@ -7,7 +7,9 @@ import imagemanagers.BackgroundImage;
 import levels.Level;
 import levels.LevelFactory;
 import javax.swing.*;
-import java.awt.geom.Point2D;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.io.File;
 
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
@@ -22,8 +24,8 @@ public class Game {
 	/** A graphical display of the world (a specialised JPanel). */
 	private final UserView view = new UserView(world, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	/** The frame in which the world will be displayed */
-	private final JFrame frame = new JFrame(WINDOW_TITLE);
+	/** The window in which the world will be displayed */
+	private final JFrame window = new JFrame(WINDOW_TITLE);
 
 	/** A LevelFactory instance which is used to generate the levels */
 	private final LevelFactory levelFactory;
@@ -35,8 +37,8 @@ public class Game {
 	 * Constructs a new instance of the Game and sets up the window and the world.
 	 */
 	private Game() {
-		// Set the frame and its settings
-		setFrame();
+		// Set the window and its settings
+		setWindowProperties();
 
 		// make the player
 		player = new Player(world);
@@ -69,31 +71,34 @@ public class Game {
 	}
 
 	/**
-	 * Sets the frame and its properties
+	 * Sets the window and its properties
 	 */
-	private void setFrame() {
-		// Set the default closing option of the frame
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	private void setWindowProperties() {
+		// Set the default closing option of the window
+		window.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Set this window to appear at its default location
-		frame.setLocationByPlatform(true);
+		window.setLocationByPlatform(true);
+
+		// Set the status panel at the top of the window
+		window.add(StatusPanel.getInstance(), BorderLayout.NORTH);
 
 		// Add the view
-		frame.add(view);
+		window.add(view);
 
-		// Prevent the frame from being resizable
-		frame.setResizable(true);
+		// Prevent the window from being resizable
+		window.setResizable(true);
 
-		// Enlarge the frame to fit the preferred size and layouts of its subcomponents
-		frame.pack();
+		// Enlarge the window to fit the preferred size and layouts of its subcomponents
+		window.pack();
 
-		// Set the frame as visible
-		frame.setVisible(true);
+		// Set the window as visible
+		window.setVisible(true);
 
 		// Show the grid
-		view.setGridResolution(1);
+//		view.setGridResolution(1);
 		// Show the debug viewer
-		new DebugViewer(world, 1920, 1080);
+//		new DebugViewer(world, 1920, 1080);
 	}
 
 	/**
