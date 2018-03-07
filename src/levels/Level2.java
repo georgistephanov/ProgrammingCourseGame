@@ -9,9 +9,7 @@ import buildingblocks.Platform;
 import buildingblocks.UnlockableWall;
 import buildingblocks.Wall;
 import city.cs.engine.Body;
-import city.cs.engine.BodyImage;
 import city.cs.engine.World;
-import imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 import java.awt.*;
 

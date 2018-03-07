@@ -2,7 +2,7 @@ package levels;
 
 import bodies.Player;
 import city.cs.engine.World;
-import imagemanagers.BackgroundImage;
+import bodies.gui.imagemanagers.BackgroundImage;
 
 public final class LevelManager {
 	public static final int MIN_LEVEL = 1;

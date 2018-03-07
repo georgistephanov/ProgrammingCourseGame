@@ -34,6 +34,8 @@ public class MouseHandler extends MouseAdapter {
 		// Calculate the degrees of the angle from the cosine
 		int degrees = (int) Math.toDegrees(Math.acos(findAngle(e)));
 
+		view.requestFocus();
+
 		// If the position of the mouse on the Y axis is higher than the player's position on the axis
 		if ( player.getPosition().y < view.viewToWorld(e.getPoint()).y ) {
 

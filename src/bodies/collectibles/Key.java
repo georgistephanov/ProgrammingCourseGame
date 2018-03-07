@@ -4,7 +4,7 @@ import bodies.Player;
 import buildingblocks.UnlockableWall;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
-import imagemanagers.SingleImageManager;
+import bodies.gui.imagemanagers.SingleImageManager;
 
 /**
  * This class represents the keys which should be collected in order to open {@code UnlockableDoor}.

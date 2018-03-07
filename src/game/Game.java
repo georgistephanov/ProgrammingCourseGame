@@ -1,17 +1,12 @@
 package game;
 
+import bodies.gui.StatusPanel;
 import city.cs.engine.*;
-import buildingblocks.*;
 import bodies.Player;
-import imagemanagers.BackgroundImage;
-import levels.Level;
-import levels.LevelFactory;
 import levels.LevelManager;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.File;
 
 import static game.GameConstants.WINDOW_HEIGHT;
 import static game.GameConstants.WINDOW_TITLE;
@@ -44,7 +39,7 @@ public class Game {
 
 		// Initialise the LevelManager singleton object and generate and display the first level
 		LevelManager.initialiseLevelManager(world, player);
-		LevelManager.displayLevel(1);
+		LevelManager.displayLevel(2);
 
 		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));
@@ -81,7 +76,7 @@ public class Game {
 		window.add(view);
 
 		// Prevent the window from being resizable
-		window.setResizable(true);
+		window.setResizable(false);
 
 		// Enlarge the window to fit the preferred size and layouts of its sub-components
 		window.pack();
@@ -92,6 +87,6 @@ public class Game {
 		// Show the grid
 //		view.setGridResolution(1);
 		// Show the debug viewer
-		new DebugViewer(world, 1920, 1080);
+//		new DebugViewer(world, 1920, 1080);
 	}
 }

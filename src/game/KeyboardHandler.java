@@ -1,9 +1,9 @@
 package game;
 
 import bodies.Player;
+import bodies.gui.StatusPanel;
 import buildingblocks.Door;
 import city.cs.engine.World;
-import imagemanagers.BackgroundImage;
 import levels.LevelManager;
 
 import java.awt.event.KeyAdapter;
@@ -44,17 +44,21 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_D:
 				player.startWalking(VELOCITY);
 				break;
+
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_A:
 				player.startWalking(-VELOCITY);
 				break;
+
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_W:
 				player.jump(JUMP_SPEED);
 				break;
+
 			case KeyEvent.VK_SPACE:
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
+					StatusPanel.getInstance().displayPauseButton();
 				} else if (Door.userEntered) {
 					int currentLevel = LevelManager.getCurrentLevel();
 
@@ -62,10 +66,12 @@ public class KeyboardHandler extends KeyAdapter {
 						LevelManager.displayLevel(currentLevel + 1);
 						Door.userEntered = false;
 					} else {
+						StatusPanel.getInstance().displayWinningMessage();
 						System.out.println("You win!");
 						world.stop();
 					}
 				}
+
 			default:
 		}
 	}

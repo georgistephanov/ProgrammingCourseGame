@@ -2,7 +2,7 @@ package bodies.collectibles;
 
 import bodies.Player;
 import city.cs.engine.*;
-import imagemanagers.RotatingImageManager;
+import bodies.gui.imagemanagers.RotatingImageManager;
 
 /**
  * This class represents the collectible coins in the game.

@@ -1,17 +1,13 @@
 package levels;
 
 import bodies.Player;
+import bodies.gui.CollectiblesJLabel;
 import buildingblocks.Door;
 import buildingblocks.Platform;
 import buildingblocks.Wall;
 import city.cs.engine.Body;
-import city.cs.engine.BodyImage;
 import city.cs.engine.World;
-import game.StatusPanel;
-import imagemanagers.BackgroundImage;
-
-import java.util.ArrayList;
-import java.util.List;
+import bodies.gui.StatusPanel;
 
 /**
  * Abstract implementation of the Level class which keeps references to the {@code World},
@@ -20,7 +16,7 @@ import java.util.List;
 abstract class AbstractLevel implements Level {
 	final World world;
 	final Door door;
-	final StatusPanel.CollectiblesJLabel levelLabel;
+	final CollectiblesJLabel levelLabel;
 
 	AbstractLevel(World world) {
 		this.world = world;

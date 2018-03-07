@@ -2,7 +2,7 @@ package bodies.collectibles;
 
 import bodies.Player;
 import city.cs.engine.*;
-import imagemanagers.SingleImageManager;
+import bodies.gui.imagemanagers.SingleImageManager;
 
 /**
  * This class represents the collectible lives in the game.

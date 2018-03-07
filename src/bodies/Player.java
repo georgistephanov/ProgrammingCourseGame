@@ -1,8 +1,10 @@
 package bodies;
 
+import bodies.gui.CollectiblesJLabel;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
-import game.StatusPanel;
+import bodies.gui.StatusPanel;
+import bodies.gui.imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
@@ -26,9 +28,9 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private int coins = 0;
 	private int lives = 3;
 
-	private final String propertyName = StatusPanel.CollectiblesJLabel.PROPERTY_NAME;
-	private final StatusPanel.CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesLabel();
-	private final StatusPanel.CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsLabel();
+	private final String propertyName = CollectiblesJLabel.PROPERTY_NAME;
+	private final CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesLabel();
+	private final CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsLabel();
 
 	/**
 	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the
@@ -130,7 +132,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	}
 
 	/**
-	 * Stops the world if this player collides with an enemy.
+	 * Handles collisions with enemies.
+	 * Decreases the player lives and if the player has no more lives shows the game over image and stops the world.
 	 *
 	 * @param e  the event of the collision
 	 */
@@ -138,16 +141,25 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
 			decreaseLives();
-			getWorld().stop();
 
 			if (lives > 0) {
 				System.out.println("Ouch...");
 				System.out.println("Press space to continue");
 			} else {
-				System.out.println("GAME OVER!");
-			}
+				// Remove all bodies from the world
+				for (Body body : getWorld().getDynamicBodies())
+					body.destroy();
+				for (Body body : getWorld().getStaticBodies())
+					body.destroy();
 
+				// Display the game over image
+				new BackgroundImage(getWorld()).displayGameOverImage();
+				System.out.println("Game over!");
+			}
 			System.out.println();
+
+			StatusPanel.getInstance().displayStartButton();
+			getWorld().stop();
 		}
 	}
 }

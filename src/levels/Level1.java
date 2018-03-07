@@ -6,11 +6,8 @@ import bodies.collectibles.Life;
 import bodies.enemies.SpikeMan;
 import bodies.enemies.WingMan;
 import buildingblocks.Platform;
-import buildingblocks.Wall;
 import city.cs.engine.Body;
-import city.cs.engine.BodyImage;
 import city.cs.engine.World;
-import imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 
 import static game.GameConstants.MovementDirections.LEFT;
