@@ -1,7 +1,7 @@
 package bodies.collectibles;
 
 import city.cs.engine.*;
-import bodies.gui.imagemanagers.AbstractImageManager;
+import gui.imagemanagers.AbstractImageManager;
 import org.jbox2d.common.Vec2;
 
 /**

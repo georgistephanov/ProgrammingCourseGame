@@ -1,4 +1,4 @@
-package bodies.gui;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 
 /**
- * Represents the labels in the status bar which indicate the amount collected of a certain collectible.
+ * Represents labels in the status bar which indicate the amount collected of a certain collectible.
  */
 public class CollectiblesJLabel extends JLabel implements PropertyChangeListener {
 	public static final String PROPERTY_NAME = "amount";
@@ -26,6 +26,11 @@ public class CollectiblesJLabel extends JLabel implements PropertyChangeListener
 		}
 	}
 
+	/**
+	 * Creates this object, sets its UI properties and adds the {@code PropertyChangeListener}.
+	 *
+	 * @param string  the string which will be shown in the label
+	 */
 	CollectiblesJLabel(String string) {
 		super(string);
 

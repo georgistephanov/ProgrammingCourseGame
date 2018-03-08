@@ -2,6 +2,7 @@ package game;
 
 import bodies.Player;
 import city.cs.engine.UserView;
+import gui.StatusPanel;
 import org.jbox2d.common.Vec2;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,6 +36,11 @@ public class MouseHandler extends MouseAdapter {
 		int degrees = (int) Math.toDegrees(Math.acos(findAngle(e)));
 
 		view.requestFocus();
+
+		// If any of the buttons on the status panel has focus return so that no player movement is invoked
+		if (StatusPanel.getInstance(player.getWorld()).buttonHasFocus()) {
+			return;
+		}
 
 		// If the position of the mouse on the Y axis is higher than the player's position on the axis
 		if ( player.getPosition().y < view.viewToWorld(e.getPoint()).y ) {

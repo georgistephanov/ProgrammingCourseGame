@@ -1,13 +1,13 @@
 package levels;
 
 import bodies.Player;
-import bodies.gui.CollectiblesJLabel;
+import gui.CollectiblesJLabel;
 import buildingblocks.Door;
 import buildingblocks.Platform;
 import buildingblocks.Wall;
 import city.cs.engine.Body;
 import city.cs.engine.World;
-import bodies.gui.StatusPanel;
+import gui.StatusPanel;
 
 /**
  * Abstract implementation of the Level class which keeps references to the {@code World},
@@ -21,7 +21,7 @@ abstract class AbstractLevel implements Level {
 	AbstractLevel(World world) {
 		this.world = world;
 
-		levelLabel = StatusPanel.getInstance().getLevelLabel();
+		levelLabel = StatusPanel.getInstance(world).getLevelLabel();
 
 		for (Body body : world.getDynamicBodies()) {
 			if (body instanceof Player)

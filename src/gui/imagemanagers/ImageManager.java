@@ -1,4 +1,4 @@
-package bodies.gui.imagemanagers;
+package gui.imagemanagers;
 
 /**
  * Interface implementing the Strategy pattern for displaying body images

@@ -1,7 +1,7 @@
 package game;
 
 import bodies.Player;
-import bodies.gui.StatusPanel;
+import gui.StatusPanel;
 import buildingblocks.Door;
 import city.cs.engine.World;
 import levels.LevelManager;
@@ -18,6 +18,8 @@ public class KeyboardHandler extends KeyAdapter {
 
 	private World world;
 	private Player player;
+
+	private StringBuilder password = new StringBuilder();
 
 	KeyboardHandler(World world, Player player) {
 		this.world = world;
@@ -58,20 +60,20 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_SPACE:
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
-					StatusPanel.getInstance().displayPauseButton();
+					StatusPanel.getInstance(world).displayPauseButton();
 				} else if (Door.userEntered) {
-					int currentLevel = LevelManager.getCurrentLevel();
+					int currentLevel = LevelManager.getInstance().getCurrentLevel();
 
 					if (currentLevel < LevelManager.MAX_LEVEL) {
-						LevelManager.displayLevel(currentLevel + 1);
+						LevelManager.getInstance().displayLevel(currentLevel + 1);
 						Door.userEntered = false;
 					} else {
-						StatusPanel.getInstance().displayWinningMessage();
+						StatusPanel.getInstance(world).displayWinningMessage();
 						System.out.println("You win!");
 						world.stop();
 					}
 				}
-
+				break;
 			default:
 		}
 	}
@@ -97,7 +99,64 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_D:
 				player.stopWalking();
 				break;
+
+			case KeyEvent.VK_P:
+				StatusPanel.getInstance(world).clickPauseButton();
+				break;
+
+			case KeyEvent.VK_R:
+				StatusPanel.getInstance(world).clickRestartButton();
+				break;
+
+			case KeyEvent.VK_L:
+				password.append('l');
+				if ( password.length() != 1 && !password.toString().equals("level")) {
+					password = new StringBuilder();
+				}
+				break;
+
+			case KeyEvent.VK_E:
+				if (password.length() > 0) {
+					password.append('e');
+
+					if ( !password.toString().equals("le") && !password.toString().equals("leve") ) {
+						password = new StringBuilder();
+					}
+				}
+				break;
+
+			case KeyEvent.VK_V:
+				if (password.length() > 0) {
+					password.append('v');
+
+					if ( !password.toString().equals("lev") ) {
+						password = new StringBuilder();
+					}
+				}
+				break;
+
+			case KeyEvent.VK_1:
+				if (password.toString().equals("level")) {
+					LevelManager.getInstance().jumpToLevel(1);
+				}
+				if (password.length() > 0) {
+					password = new StringBuilder();
+				}
+				break;
+
+			case KeyEvent.VK_2:
+				if (password.toString().equals("level")) {
+					LevelManager.getInstance().jumpToLevel(2);
+				}
+				if (password.length() > 0) {
+					password = new StringBuilder();
+				}
+				break;
+
 			default:
+				if (password.length() > 0) {
+					password = new StringBuilder();
+				}
 				break;
 		}
 	}

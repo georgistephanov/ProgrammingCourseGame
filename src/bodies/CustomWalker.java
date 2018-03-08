@@ -1,7 +1,7 @@
 package bodies;
 
 import city.cs.engine.*;
-import bodies.gui.imagemanagers.WalkerImageManager;
+import gui.imagemanagers.WalkerImageManager;
 import org.jbox2d.common.Vec2;
 
 /**

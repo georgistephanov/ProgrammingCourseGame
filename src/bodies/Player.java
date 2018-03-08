@@ -1,10 +1,10 @@
 package bodies;
 
-import bodies.gui.CollectiblesJLabel;
+import gui.CollectiblesJLabel;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
-import bodies.gui.StatusPanel;
-import bodies.gui.imagemanagers.BackgroundImage;
+import gui.StatusPanel;
+import gui.imagemanagers.BackgroundImage;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
@@ -29,8 +29,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private int lives = 3;
 
 	private final String propertyName = CollectiblesJLabel.PROPERTY_NAME;
-	private final CollectiblesJLabel livesLabel = StatusPanel.getInstance().getLivesLabel();
-	private final CollectiblesJLabel coinsLabel = StatusPanel.getInstance().getCoinsLabel();
+	private final CollectiblesJLabel livesLabel = StatusPanel.getInstance(getWorld()).getLivesLabel();
+	private final CollectiblesJLabel coinsLabel = StatusPanel.getInstance(getWorld()).getCoinsLabel();
 
 	/**
 	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the
@@ -62,6 +62,14 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	}
 
 	/**
+	 * Resets the amount of coins collected to 0.
+	 */
+	public void resetCoins() {
+		coins = 0;
+		coinsLabel.firePropertyChange(propertyName, coinsLabel.getAmount(), coins);
+	}
+
+	/**
 	 * Gets the amount of lives this player has left.
 	 *
 	 * @return  the amount of lives left
@@ -82,6 +90,14 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 */
 	private void decreaseLives() {
 		setLives(--lives);
+	}
+
+	/**
+	 * Resets the lives of this player.
+	 */
+	public void resetLives() {
+		lives = 3;
+		setLives(lives);
 	}
 
 	/**
@@ -158,7 +174,7 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 			}
 			System.out.println();
 
-			StatusPanel.getInstance().displayStartButton();
+			StatusPanel.getInstance(getWorld()).displayStartButton();
 			getWorld().stop();
 		}
 	}

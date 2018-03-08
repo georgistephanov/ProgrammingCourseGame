@@ -1,6 +1,6 @@
 package game;
 
-import bodies.gui.StatusPanel;
+import gui.StatusPanel;
 import city.cs.engine.*;
 import bodies.Player;
 import levels.LevelManager;
@@ -39,7 +39,7 @@ public class Game {
 
 		// Initialise the LevelManager singleton object and generate and display the first level
 		LevelManager.initialiseLevelManager(world, player);
-		LevelManager.displayLevel(2);
+		LevelManager.getInstance().displayLevel(1);
 
 		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));
@@ -70,7 +70,7 @@ public class Game {
 		window.setLocationByPlatform(true);
 
 		// Set the status panel at the top of the window
-		window.add(StatusPanel.getInstance(), BorderLayout.NORTH);
+		window.add(StatusPanel.getInstance(world), BorderLayout.NORTH);
 
 		// Add the view
 		window.add(view);

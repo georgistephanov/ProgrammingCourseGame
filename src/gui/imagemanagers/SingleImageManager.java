@@ -1,4 +1,4 @@
-package bodies.gui.imagemanagers;
+package gui.imagemanagers;
 
 import city.cs.engine.Body;
 import city.cs.engine.BodyImage;
