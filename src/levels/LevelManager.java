@@ -1,11 +1,16 @@
 package levels;
 
 import bodies.Player;
+import city.cs.engine.Body;
 import city.cs.engine.World;
+import gui.StatusPanel;
 import gui.imagemanagers.BackgroundImage;
 
+/**
+ * This is a singleton class that manages the game levels.
+ */
 public final class LevelManager {
-	public static final int MIN_LEVEL = 1;
+	private static final int MIN_LEVEL = 1;
 	public static final int MAX_LEVEL = 3;
 
 	private static LevelManager instance;
@@ -15,10 +20,23 @@ public final class LevelManager {
 	private LevelFactory levelFactory;
 	private int currentLevel;
 
+	/**
+	 * Creates a singleton instance of this class.
+	 * This method is needed to avoid passing 2 parameters to every {@code getInstance} method.
+	 *
+	 * @param world  the game world
+	 * @param player  the game player
+	 */
 	public static void initialiseLevelManager(World world, Player player) {
 		instance = new LevelManager(world, player);
 	}
 
+	/**
+	 * Gets an instance object of this class.
+	 *
+	 * @return  the singleton object instance
+	 * @throws RuntimeException if the instance object has not been yet initialised by the {@code initialiseLevelManager} method
+	 */
 	public static LevelManager getInstance() {
 		if (instance == null) {
 			throw new RuntimeException("LevelManager has to be initialised first before getting an instance of it");
@@ -27,23 +45,35 @@ public final class LevelManager {
 		return instance;
 	}
 
+	/**
+	 * Private constructor to ensure the singleton object property.
+	 *
+	 * @param world  the game world
+	 * @param player  the game player
+	 */
 	private LevelManager(World world, Player player) {
 		levelFactory = LevelFactory.getInstance(world, player);
 		this.world = world;
 		this.player = player;
 	}
 
+	/**
+	 * Generates and displays a game level.
+	 *
+	 * @param levelNumber  the level which to be generated and displayed
+	 * @throws RuntimeException  if there is no such {@code levelNumber} implemented
+	 */
 	public void displayLevel(int levelNumber) {
 		if (levelNumber >= MIN_LEVEL && levelNumber <= MAX_LEVEL) {
-			Level level = levelFactory.getLevel(levelNumber);
+			currentLevel = levelNumber;
 
+			Level level = levelFactory.getLevel(levelNumber);
 			level.displayPlatforms();
 			level.displayEnemies();
 			level.displayCollectibles();
 
 			new BackgroundImage(world).displayLevelBackgroundImage(levelNumber);
 
-			currentLevel = levelNumber;
 		} else {
 			throw new RuntimeException("The game supports only levels " + MIN_LEVEL + " through " + MAX_LEVEL);
 		}
@@ -53,28 +83,48 @@ public final class LevelManager {
 	 * Restarts the game and sets the player's lives and coins to their default values.
 	 */
 	public void restartGame() {
+		// Resume the game, as it is paused now
+		StatusPanel.getInstance(world).clickPauseButton();
+
+		// Reset the player stats and display the first level
+		resetPlayerStats();
 		displayLevel(1);
-		resetPlayerStats();
 	}
 
 	/**
-	 * Implements the jumping between levels functionality and resets the player's lives and coins.
-	 *
-	 * @param level  the level to which to jump
+	 * Removes all bodies from the world and displays the game over image.
 	 */
-	public void jumpToLevel(int level) {
-		resetPlayerStats();
-		displayLevel(level);
+	public void gameOver() {
+		// Remove all bodies from the world except the player. Position the player outside of the visible world.
+		for (Body body : world.getDynamicBodies()) {
+			if (body instanceof Player) {
+				// Hide the player from the screen
+				((Player) body).setPosition(50, 0);
+			} else {
+				body.destroy();
+			}
+		}
+		for (Body body : world.getStaticBodies()) {
+			body.destroy();
+		}
+
+		// Display the game over image
+		new BackgroundImage(world).displayGameOverImage();
 	}
 
 	/**
-	 * Resets teh player's stats to their initial values.
+	 * Resets the player's stats to their initial values.
 	 */
 	private void resetPlayerStats() {
 		player.resetLives();
 		player.resetCoins();
 	}
 
+	/**
+	 * Gets the current level of the game.
+	 *
+	 * @return  the current level
+	 */
 	public int getCurrentLevel() {
 		return currentLevel;
 	}

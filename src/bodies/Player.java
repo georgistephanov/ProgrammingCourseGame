@@ -1,10 +1,10 @@
 package bodies;
 
-import gui.CollectiblesJLabel;
+import gui.AmountJLabel;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
 import gui.StatusPanel;
-import gui.imagemanagers.BackgroundImage;
+import levels.LevelManager;
 import org.jbox2d.common.Vec2;
 import static game.GameConstants.MovementDirections.*;
 
@@ -35,9 +35,9 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	private boolean hasWon = false;
 	private int stepCounter = 1;
 
-	private final String propertyName = CollectiblesJLabel.PROPERTY_NAME;
-	private final CollectiblesJLabel livesLabel = StatusPanel.getInstance(getWorld()).getLivesLabel();
-	private final CollectiblesJLabel coinsLabel = StatusPanel.getInstance(getWorld()).getCoinsLabel();
+	private final String propertyName = AmountJLabel.PROPERTY_NAME;
+	private final AmountJLabel livesLabel = StatusPanel.getInstance(getWorld()).getLivesLabel();
+	private final AmountJLabel coinsLabel = StatusPanel.getInstance(getWorld()).getCoinsLabel();
 
 	/**
 	 * Creates the superclass instance object, sets the gravity scale of this object to 2 and registers the
@@ -158,8 +158,6 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	 */
 	@Override
 	public void postStep(StepEvent stepEvent) {
-		Vec2 velocity = getLinearVelocity();
-
 		if (hasWon) {
 			// Change images every 5 steps
 			if (stepCounter++ == 5) {
@@ -168,6 +166,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 			}
 			return;
 		}
+
+		Vec2 velocity = getLinearVelocity();
 
 		if (velocity.y > 0) {
 			imageManager.changeImage(JUMPING);
@@ -187,24 +187,17 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	@Override
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
+			// Decrease the player's lives
 			decreaseLives();
 
 			if (lives > 0) {
 				System.out.println("Ouch...");
-				System.out.println("Press space to continue");
+				System.out.println("Press space to continue\n");
 			} else {
-				// Remove all bodies from the world
-				for (Body body : getWorld().getDynamicBodies())
-					body.destroy();
-				for (Body body : getWorld().getStaticBodies())
-					body.destroy();
-
-				// Display the game over image
-				new BackgroundImage(getWorld()).displayGameOverImage();
-				System.out.println("Game over!");
+				LevelManager.getInstance().gameOver();
 			}
-			System.out.println();
 
+			// Show the start button
 			StatusPanel.getInstance(getWorld()).displayStartButton();
 			getWorld().stop();
 		}

@@ -28,11 +28,9 @@ public class Level2 extends AbstractLevel {
 	 * @param player  the player associated with the game
 	 */
 	Level2(World world, Player player) {
-		super(world);
+		super(world, player);
 
-		player.setPosition(-45, -20);
-		door.setPosition(44.25f, -21.5f);
-
+		// Update the level label on the status panel
 		levelLabel.firePropertyChange("amount", levelLabel.getAmount(), 2);
 	}
 
@@ -103,18 +101,5 @@ public class Level2 extends AbstractLevel {
 		for (int i = 1; i <= 3; i++) {
 			new Coin(world).setPosition(20.25f + (5 * i), -23);
 		}
-	}
-
-	@Override
-	public void resetLevel() {
-		for (Body body: world.getDynamicBodies()) {
-			if ( !(body instanceof Player) ) {
-				body.destroy();
-			} else {
-				((Player) body).setLinearVelocity(new Vec2(0, 0));
-			}
-		}
-
-		displayEnemies();
 	}
 }

@@ -87,6 +87,6 @@ public class Game {
 		// Show the grid
 //		view.setGridResolution(1);
 		// Show the debug viewer
-		new DebugViewer(world, 1920, 1080);
+//		new DebugViewer(world, 1920, 1080);
 	}
 }

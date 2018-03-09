@@ -9,7 +9,9 @@ import bodies.enemies.Zombie;
 import buildingblocks.Platform;
 import buildingblocks.Teleport;
 import buildingblocks.Wall;
+import city.cs.engine.Body;
 import city.cs.engine.World;
+import org.jbox2d.common.Vec2;
 
 import static game.GameConstants.MovementDirections.LEFT;
 import static game.GameConstants.MovementDirections.RIGHT;
@@ -26,12 +28,12 @@ public class Level3 extends AbstractLevel {
 	 * @param player  the player associated with the game
 	 */
 	Level3(World world, Player player) {
-		super(world);
+		super(world, player);
 
-		player.setPosition(-45, -20);
-		door.setPosition(14.5f, -21.5f);
-
+		// Update the level label on the status panel
 		levelLabel.firePropertyChange("amount", levelLabel.getAmount(), 3);
+
+		door.setPosition(14.5f, -21.5f);
 	}
 
 	@Override
@@ -109,10 +111,5 @@ public class Level3 extends AbstractLevel {
 
 		new Coin(world).setPosition(5, 9.5f);
 		new Coin(world).setPosition(43.5f, -6.5f);
-	}
-
-	@Override
-	public void resetLevel() {
-
 	}
 }

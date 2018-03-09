@@ -19,8 +19,14 @@ public final class BackgroundImage extends GhostlyFixture {
 		super(new StaticBody(world), BACKGROUND_IMAGE_BODY_SHAPE);
 	}
 
-	public void displayLevelBackgroundImage(int level) {
-		switch (level) {
+	/**
+	 * Displays a background image based on the level.
+	 *
+	 * @param levelNumber  for which level to display the background image
+	 * @throws InvalidParameterException if there is no such {@code levelNumber} implemented
+	 */
+	public void displayLevelBackgroundImage(int levelNumber) {
+		switch (levelNumber) {
 			case 1:
 				getBody().addImage(BACKGROUND_LEVEL_1);
 				break;
@@ -35,6 +41,9 @@ public final class BackgroundImage extends GhostlyFixture {
 		}
 	}
 
+	/**
+	 * Displays the game over image.
+	 */
 	public void displayGameOverImage() {
 		getBody().addImage(GAME_OVER);
 	}

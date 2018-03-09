@@ -11,9 +11,9 @@ public final class StatusPanel extends JPanel {
 
 	private final JPanel infoPanel = new JPanel();
 	private final JPanel buttonsPanel = new JPanel();
-	private final CollectiblesJLabel levelLabel = new CollectiblesJLabel("Level");
-	private final CollectiblesJLabel livesLabel = new CollectiblesJLabel("Lives");
-	private final CollectiblesJLabel coinsLabel = new CollectiblesJLabel("Coins");
+	private final AmountJLabel levelLabel = new AmountJLabel("Level");
+	private final AmountJLabel livesLabel = new AmountJLabel("Lives");
+	private final AmountJLabel coinsLabel = new AmountJLabel("Coins");
 
 	private final ImageIcon [] startButtonIcons = {
 			new ImageIcon("data/buttons/start.png"),
@@ -75,18 +75,19 @@ public final class StatusPanel extends JPanel {
 	 * Clears everything from the status panel and displays the winning message.
 	 */
 	public void displayWinningMessage() {
-		infoPanel.remove(livesLabel);
-		infoPanel.remove(coinsLabel);
 		remove(levelLabel);
 		remove(buttonsPanel);
+		infoPanel.remove(coinsLabel);
+		infoPanel.remove(livesLabel);
 
-		// TODO: Not working if not debugging???
 		for (int i = 0; i < 7; i++) {
-			JLabel label = new CollectiblesJLabel("WINNER!");
+			JLabel label = new AmountJLabel("WINNER!");
 			infoPanel.add(label);
 		}
 
+		revalidate();
 		repaint();
+		System.out.println("You win!");
 	}
 
 	private void initInfoPanel() {
@@ -110,9 +111,7 @@ public final class StatusPanel extends JPanel {
 		});
 
 		resetButton = new StatusJButton(resetGameIcons);
-		resetButton.addActionListener((ActionEvent e) -> {
-			LevelManager.getInstance().restartGame();
-		});
+		resetButton.addActionListener((ActionEvent e) -> LevelManager.getInstance().restartGame());
 
 		buttonsPanel.setBackground(new Color(0, 0, 0, 0));
 		buttonsPanel.add(pauseButton);
@@ -180,7 +179,7 @@ public final class StatusPanel extends JPanel {
 	 *
 	 * @return  the label for the current level
 	 */
-	public CollectiblesJLabel getLevelLabel() {
+	public AmountJLabel getLevelLabel() {
 		return levelLabel;
 	}
 
@@ -189,7 +188,7 @@ public final class StatusPanel extends JPanel {
 	 *
 	 * @return  the label for the lives
 	 */
-	public CollectiblesJLabel getLivesLabel() {
+	public AmountJLabel getLivesLabel() {
 		return livesLabel;
 	}
 
@@ -198,7 +197,7 @@ public final class StatusPanel extends JPanel {
 	 *
 	 * @return  the label for the coins
 	 */
-	public CollectiblesJLabel getCoinsLabel() {
+	public AmountJLabel getCoinsLabel() {
 		return coinsLabel;
 	}
 }

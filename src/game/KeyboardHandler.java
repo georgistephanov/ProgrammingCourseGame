@@ -14,8 +14,6 @@ import java.util.TimerTask;
 import static game.GameConstants.JUMP_SPEED;
 import static game.GameConstants.VELOCITY;
 
-// TODO: Refactor this method as it should only call methods, not contain logic
-
 /**
  * Handles the keyboard inputs.
  */
@@ -24,11 +22,20 @@ public class KeyboardHandler extends KeyAdapter {
 	private World world;
 	private Player player;
 
+	private StatusPanel statusPanel;
+	private LevelManager levelManager;
+
 	private StringBuilder password = new StringBuilder();
+	private static final String [] PASSWORDS = {
+			"level1", "level2", "level3"
+	};
 
 	KeyboardHandler(World world, Player player) {
 		this.world = world;
 		this.player = player;
+
+		statusPanel = StatusPanel.getInstance(world);
+		levelManager = LevelManager.getInstance();
 	}
 
 	/**
@@ -65,18 +72,19 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_SPACE:
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
-					StatusPanel.getInstance(world).displayPauseButton();
+					statusPanel.displayPauseButton();
 				} else if (Door.hasPlayerEntered()) {
-					int currentLevel = LevelManager.getInstance().getCurrentLevel();
+
+					int currentLevel = levelManager.getCurrentLevel();
 
 					if (currentLevel < LevelManager.MAX_LEVEL) {
-						LevelManager.getInstance().displayLevel(currentLevel + 1);
+						// There is a next level -> display it
+						levelManager.displayLevel(currentLevel + 1);
 						Door.setPlayerEntered(false);
 					} else {
+						// The player has won
 						player.setHasWon(true);
-						System.out.println("You win!");
-						StatusPanel.getInstance(world).displayWinningMessage();
-
+						statusPanel.displayWinningMessage();
 						new Timer().schedule(new TimerTask() {
 							@Override
 							public void run() {
@@ -113,72 +121,52 @@ public class KeyboardHandler extends KeyAdapter {
 				break;
 
 			case KeyEvent.VK_P:
-				StatusPanel.getInstance(world).clickPauseButton();
+				statusPanel.clickPauseButton();
 				break;
 
 			case KeyEvent.VK_R:
-				StatusPanel.getInstance(world).clickRestartButton();
-				break;
-
-			case KeyEvent.VK_L:
-				password.append('l');
-				if ( password.length() != 1 && !password.toString().equals("level")) {
-					password = new StringBuilder();
-				}
-				break;
-
-			case KeyEvent.VK_E:
-				if (password.length() > 0) {
-					password.append('e');
-
-					if ( !password.toString().equals("le") && !password.toString().equals("leve") ) {
-						password = new StringBuilder();
-					}
-				}
-				break;
-
-			case KeyEvent.VK_V:
-				if (password.length() > 0) {
-					password.append('v');
-
-					if ( !password.toString().equals("lev") ) {
-						password = new StringBuilder();
-					}
-				}
-				break;
-
-			case KeyEvent.VK_1:
-				if (password.toString().equals("level")) {
-					LevelManager.getInstance().jumpToLevel(1);
-				}
-				if (password.length() > 0) {
-					password = new StringBuilder();
-				}
-				break;
-
-			case KeyEvent.VK_2:
-				if (password.toString().equals("level")) {
-					LevelManager.getInstance().jumpToLevel(2);
-				}
-				if (password.length() > 0) {
-					password = new StringBuilder();
-				}
-				break;
-
-			case KeyEvent.VK_3:
-				if (password.toString().equals("level")) {
-					LevelManager.getInstance().jumpToLevel(3);
-				}
-				if (password.length() > 0) {
-					password = new StringBuilder();
-				}
+				statusPanel.clickRestartButton();
 				break;
 
 			default:
-				if (password.length() > 0) {
-					password = new StringBuilder();
+				password.append(e.getKeyChar());
+				checkPassword();
+		}
+	}
+
+	/**
+	 * Checks whether the current value of the entered password matches any of the valid game passwords.
+	 * If not, checks whether it is a prefix of any valid password (i.e. password currently being typed).
+	 * If none of these is the case, delete the content of the password.
+	 */
+	private void checkPassword() {
+
+		boolean isPrefix = false;
+
+		for (String p : PASSWORDS) {
+			// Check for match with any of the valid game passwords
+			if (p.equals(password.toString())) {
+				switch (p) {
+					case "level1":
+						levelManager.displayLevel(1);
+						break;
+					case "level2":
+						levelManager.displayLevel(2);
+						break;
+					case "level3":
+						levelManager.displayLevel(3);
+						break;
+					default:
 				}
-				break;
+			} else if (p.startsWith(password.toString())) {
+				// The password could be currently typed
+				isPrefix = true;
+			}
+		}
+
+		// If the password is not a prefix of any existing game password -> delete the content of the password variable
+		if ( !isPrefix ) {
+			password = new StringBuilder();
 		}
 	}
 }

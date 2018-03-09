@@ -32,7 +32,7 @@ class LevelFactory {
 	 * @param player  the player associated with the world
 	 * @return  the singleton instance of this factory
 	 */
-	public static LevelFactory getInstance(World world, Player player) {
+	static LevelFactory getInstance(World world, Player player) {
 		if (instance == null) {
 			instance = new LevelFactory(world, player);
 		}
@@ -46,6 +46,7 @@ class LevelFactory {
 	 *
 	 * @param level  the level number of the level which is to be created
 	 * @return  the level associated with the parameter, null if such level doesn't exist
+	 * @throws InvalidParameterException if there is no such {@code levelNumber} implemented
 	 */
 	Level getLevel(int level) {
 		switch(level) {

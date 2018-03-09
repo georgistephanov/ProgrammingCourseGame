@@ -9,7 +9,8 @@ import java.io.File;
 /**
  * Represents labels in the status bar which indicate the amount collected of a certain collectible.
  */
-public class CollectiblesJLabel extends JLabel implements PropertyChangeListener {
+public class AmountJLabel extends JLabel implements PropertyChangeListener {
+	/** The property name by which this object listens for property changes. */
 	public static final String PROPERTY_NAME = "amount";
 	private int amount = -1;
 
@@ -31,7 +32,7 @@ public class CollectiblesJLabel extends JLabel implements PropertyChangeListener
 	 *
 	 * @param string  the string which will be shown in the label
 	 */
-	CollectiblesJLabel(String string) {
+	AmountJLabel(String string) {
 		super(string);
 
 		setBorder(BorderFactory.createMatteBorder(0, 20, 0, 20, Color.darkGray));
@@ -43,6 +44,12 @@ public class CollectiblesJLabel extends JLabel implements PropertyChangeListener
 		addPropertyChangeListener(PROPERTY_NAME, this);
 	}
 
+	/**
+	 * Sets the amount on the label.
+	 *
+	 * @param evt  the change event of the property
+	 * @throws RuntimeException if the passed value is not an integer
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getNewValue() instanceof Integer) {
