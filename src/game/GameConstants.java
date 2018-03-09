@@ -33,6 +33,6 @@ public final class GameConstants {
 	 * The directions of movement.
 	 */
 	public enum MovementDirections {
-		LEFT, RIGHT, NOT_MOVING, JUMPING, FALLING;
+		LEFT, RIGHT, NOT_MOVING, JUMPING, FALLING, CHEER
 	}
 }

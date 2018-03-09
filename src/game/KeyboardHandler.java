@@ -8,8 +8,13 @@ import levels.LevelManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static game.GameConstants.JUMP_SPEED;
 import static game.GameConstants.VELOCITY;
+
+// TODO: Refactor this method as it should only call methods, not contain logic
 
 /**
  * Handles the keyboard inputs.
@@ -61,16 +66,23 @@ public class KeyboardHandler extends KeyAdapter {
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
 					StatusPanel.getInstance(world).displayPauseButton();
-				} else if (Door.userEntered) {
+				} else if (Door.hasPlayerEntered()) {
 					int currentLevel = LevelManager.getInstance().getCurrentLevel();
 
 					if (currentLevel < LevelManager.MAX_LEVEL) {
 						LevelManager.getInstance().displayLevel(currentLevel + 1);
-						Door.userEntered = false;
+						Door.setPlayerEntered(false);
 					} else {
-						StatusPanel.getInstance(world).displayWinningMessage();
+						player.setHasWon(true);
 						System.out.println("You win!");
-						world.stop();
+						StatusPanel.getInstance(world).displayWinningMessage();
+
+						new Timer().schedule(new TimerTask() {
+							@Override
+							public void run() {
+								world.stop();
+							}
+						}, 2000);
 					}
 				}
 				break;
@@ -147,6 +159,15 @@ public class KeyboardHandler extends KeyAdapter {
 			case KeyEvent.VK_2:
 				if (password.toString().equals("level")) {
 					LevelManager.getInstance().jumpToLevel(2);
+				}
+				if (password.length() > 0) {
+					password = new StringBuilder();
+				}
+				break;
+
+			case KeyEvent.VK_3:
+				if (password.toString().equals("level")) {
+					LevelManager.getInstance().jumpToLevel(3);
 				}
 				if (password.length() > 0) {
 					password = new StringBuilder();

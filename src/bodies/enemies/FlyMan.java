@@ -8,7 +8,6 @@ public class FlyMan extends Enemy {
 
 	public FlyMan(World world) {
 		super(new Builder(world, FLY_MAN_SHAPE).standingImage(FLY_MAN_IMAGE));
-
 		setGravityScale(0);
 	}
 }

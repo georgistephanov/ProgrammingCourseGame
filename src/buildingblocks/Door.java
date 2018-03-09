@@ -16,7 +16,7 @@ public class Door extends CustomSensor {
 	/**
 	 * Flag variable indicating whether the player is currently in a contact with the door.
 	 */
-	public static boolean userEntered = false;
+	private static boolean playerEntered = false;
 
 	/**
 	 * Constructs this object and sets its image.
@@ -29,7 +29,25 @@ public class Door extends CustomSensor {
 	}
 
 	/**
-	 * Sets the {@code userEntered} variable to {@code true} when the player gets in a contact with the door.
+	 * Whether the player is currently in contact with the door.
+	 *
+	 * @return  true if the player is in contact with the door at the moment
+	 */
+	public static boolean hasPlayerEntered() {
+		return playerEntered;
+	}
+
+	/**
+	 * Sets whether the player is currently in contact with the door.
+	 *
+	 * @param entered  true if the player is in contact with the door
+	 */
+	public static void setPlayerEntered(boolean entered) {
+		playerEntered = entered;
+	}
+
+	/**
+	 * Sets the {@code playerEntered} variable to {@code true} when the player gets in contact with the door.
 	 *
 	 * @param e  the contact event
 	 */
@@ -37,19 +55,19 @@ public class Door extends CustomSensor {
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			System.out.println("Press SPACE to win...");
-			userEntered = true;
+			playerEntered = true;
 		}
 	}
 
 	/**
-	 * Sets the {@code userEntered} variable to {@code false} when the player gets in a contact with the door.
+	 * Sets the {@code playerEntered} variable to {@code false} when the player ends its contact with the door.
 	 *
 	 * @param e  the contact event
 	 */
 	@Override
 	public void endContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
-			userEntered = false;
+			playerEntered = false;
 		}
 	}
 }

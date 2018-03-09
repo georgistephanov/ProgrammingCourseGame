@@ -7,9 +7,12 @@ import city.cs.engine.StepListener;
 
 /**
  * Concrete implementation of the {@code AbstractImageManager} for images which rotate in one position.
- * This class is typically used for collectibles.
+ * This class is used for collectibles and teleports.
  */
 public final class RotatingImageManager extends AbstractImageManager implements StepListener {
+
+	/** This is a flag variable which controls whether the images should be flipped during the rotation. Default is {@code true}. */
+	private boolean flip = true;
 
 	public RotatingImageManager(Body body, BodyImage[] images) {
 		super(body, images);
@@ -21,6 +24,15 @@ public final class RotatingImageManager extends AbstractImageManager implements 
 	@Override
 	public void display() {
 		body.getWorld().addStepListener(this);
+	}
+
+	/**
+	 * Sets the flip flag which controls whether the images should be flipped while rotating.
+	 *
+	 * @param flip  true if the images should be flipped on rotation
+	 */
+	public void setFlip(boolean flip) {
+		this.flip = flip;
 	}
 
 	/**
@@ -40,7 +52,11 @@ public final class RotatingImageManager extends AbstractImageManager implements 
 			if (imageUp) {
 				body.addImage(images[imageIndex++]);
 			} else {
-				body.addImage(images[imageIndex--]).flipHorizontal();
+				if (flip) {
+					body.addImage(images[imageIndex--]).flipHorizontal();
+				} else {
+					body.addImage(images[imageIndex--]);
+				}
 			}
 
 			currentStep = 0;

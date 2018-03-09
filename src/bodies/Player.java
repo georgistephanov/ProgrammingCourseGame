@@ -24,9 +24,16 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 			new BodyImage("data/player/player_walk1.png", 6.5f),
 			new BodyImage("data/player/player_walk2.png", 6.5f)
 	};
+	private static final BodyImage [] CHEER_IMAGES = {
+			new BodyImage("data/player/player_cheer1.png", 6.5f),
+			new BodyImage("data/player/player_cheer2.png", 6.5f)
+	};
 
 	private int coins = 0;
 	private int lives = 3;
+
+	private boolean hasWon = false;
+	private int stepCounter = 1;
 
 	private final String propertyName = CollectiblesJLabel.PROPERTY_NAME;
 	private final CollectiblesJLabel livesLabel = StatusPanel.getInstance(getWorld()).getLivesLabel();
@@ -43,7 +50,8 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 				.standingImage(STANDING_IMAGE)
 				.walkingImages(WALKING_IMAGES)
 				.jumpingImage(JUMPING_IMAGE)
-				.fallingImage(FALLING_IMAGE) );
+				.fallingImage(FALLING_IMAGE)
+				.cheerImages(CHEER_IMAGES));
 
 		setGravityScale(2);
 
@@ -109,8 +117,22 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 		livesLabel.firePropertyChange(propertyName, livesLabel.getAmount(), lives);
 	}
 
+	/**
+	 * Set whether the player has won the game.
+	 *
+	 * @param hasWon  true if the player has won the game
+	 */
+	public void setHasWon(boolean hasWon) {
+		this.hasWon = hasWon;
+	}
+
 	@Override
 	public void startWalking(float speed) {
+		// Don't move the player if he had won the game
+		if (hasWon) {
+			return;
+		}
+
 		super.startWalking(speed);
 
 		// Display the correct image based on which direction on the X axis the walker is moving
@@ -137,6 +159,15 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	@Override
 	public void postStep(StepEvent stepEvent) {
 		Vec2 velocity = getLinearVelocity();
+
+		if (hasWon) {
+			// Change images every 5 steps
+			if (stepCounter++ == 5) {
+				imageManager.changeImage(CHEER);
+				stepCounter = 0;
+			}
+			return;
+		}
 
 		if (velocity.y > 0) {
 			imageManager.changeImage(JUMPING);

@@ -30,13 +30,9 @@ public abstract class AbstractImageManager implements ImageManager {
 		this.images = images;
 	}
 
-	/**
-	 * Sets the amount of game steps between image changes.
-	 *
-	 * @param stepCounter  amount of game steps
-	 */
-	public void setStepCounter(int stepCounter) {
-		this.stepCounter = stepCounter;
+	@Override
+	public void setStepCounter(int steps) {
+		this.stepCounter = steps;
 	}
 
 	@Override

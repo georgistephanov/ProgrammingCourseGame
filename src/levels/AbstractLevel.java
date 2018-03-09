@@ -37,8 +37,8 @@ abstract class AbstractLevel implements Level {
 		// Ground
 		new Platform(world, 50, 1).setPosition(0, -26);
 		// Right and left walls
-		new Wall(world, 28).setPosition(-48, 0);
-		new Wall(world, 28).setPosition(48, 0);
+		new Wall(world, 48).setPosition(-48, 20);
+		new Wall(world, 48).setPosition(48, 20);
 
 		door = new Door(world);
 	}

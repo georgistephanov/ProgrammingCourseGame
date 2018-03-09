@@ -80,7 +80,7 @@ public final class StatusPanel extends JPanel {
 		remove(levelLabel);
 		remove(buttonsPanel);
 
-		// TODO: Not working!
+		// TODO: Not working if not debugging???
 		for (int i = 0; i < 7; i++) {
 			JLabel label = new CollectiblesJLabel("WINNER!");
 			infoPanel.add(label);

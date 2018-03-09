@@ -6,7 +6,7 @@ import gui.imagemanagers.BackgroundImage;
 
 public final class LevelManager {
 	public static final int MIN_LEVEL = 1;
-	public static final int MAX_LEVEL = 2;
+	public static final int MAX_LEVEL = 3;
 
 	private static LevelManager instance;
 	private World world;

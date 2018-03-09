@@ -3,10 +3,12 @@ package levels;
 import bodies.Player;
 import city.cs.engine.World;
 
+import java.security.InvalidParameterException;
+
 /**
  * Implements the Static Factory Pattern for creating level objects.
  */
-public class LevelFactory {
+class LevelFactory {
 	private static LevelFactory instance;
 	private final World world;
 	private final Player player;
@@ -51,8 +53,10 @@ public class LevelFactory {
 				return new Level1(world, player);
 			case 2:
 				return new Level2(world, player);
+			case 3:
+				return new Level3(world, player);
 			default:
-				return null;
+				throw new InvalidParameterException("This game supports only levels 1, 2 and 3");
 		}
 	}
 

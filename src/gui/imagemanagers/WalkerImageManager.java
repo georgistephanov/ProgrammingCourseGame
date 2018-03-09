@@ -16,11 +16,14 @@ public final class WalkerImageManager implements ImageManager {
 	private final BodyImage [] walkingImages;
 	private final BodyImage jumpingImage;
 	private final BodyImage fallingImage;
+	private final BodyImage [] cheerImages;
 
 	private MovementDirections lastMovingDirection = NOT_MOVING;
 
 	/** Used as an image index in the range [0, walkingImages.length) to display the images from the array consecutively. */
 	private int walkingImagesIndex = 0;
+	/** Used as an image index in the range [0, cheerImages.length) to display the images from the array consecutively. */
+	private int cheerImagesIndex = 0;
 	/** Flag variable to indicate whether the image should be flipped when the object is moving in the left direction. */
 	private boolean flipImage = true;
 
@@ -28,13 +31,15 @@ public final class WalkerImageManager implements ImageManager {
 							  BodyImage standingImage,
 							  BodyImage [] walkingImages,
 							  BodyImage jumpingImage,
-							  BodyImage fallingImage) {
+							  BodyImage fallingImage,
+							  BodyImage [] cheerImages) {
 
 		this.body 			= body;
 		this.standingImage 	= standingImage;
 		this.walkingImages 	= walkingImages;
 		this.jumpingImage 	= jumpingImage;
 		this.fallingImage 	= fallingImage;
+		this.cheerImages 	= cheerImages;
 	}
 
 	@Override
@@ -77,6 +82,12 @@ public final class WalkerImageManager implements ImageManager {
 			newImg = jumpingImage;
 		} else if ( direction == FALLING && fallingImage != null ) {
 			newImg = fallingImage;
+		} else if ( direction == CHEER && cheerImages != null && cheerImages.length > 0 ) {
+			if (cheerImagesIndex == cheerImages.length) {
+				cheerImagesIndex = 0;
+			}
+
+			newImg = cheerImages[cheerImagesIndex++];
 		} else {
 			newImg = standingImage;
 		}
@@ -87,4 +98,12 @@ public final class WalkerImageManager implements ImageManager {
 			body.addImage(newImg);
 		}
 	}
+
+	/**
+	 * Empty implementation of this interface method as this class doesn't make use of it.
+	 *
+	 * @param steps  amount of game steps
+	 */
+	@Override
+	public void setStepCounter(int steps) { }
 }

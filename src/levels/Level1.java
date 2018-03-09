@@ -6,6 +6,7 @@ import bodies.collectibles.Life;
 import bodies.enemies.SpikeMan;
 import bodies.enemies.WingMan;
 import buildingblocks.Platform;
+import buildingblocks.Wall;
 import city.cs.engine.Body;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
@@ -43,7 +44,7 @@ public class Level1 extends AbstractLevel {
 		new Platform(world, 4, .5f).setPosition(-10, 13);
 
 		// Mid wall
-//		new Wall(world, 20).setPosition(0, -5f);
+		new Wall(world, 20).setPosition(0, -5f);
 
 		// Right-hand side platforms
 		new Platform(world, 18, .5f).setPosition(29, 18);

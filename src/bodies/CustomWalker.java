@@ -26,7 +26,7 @@ public class CustomWalker extends Walker {
 		super(builder.world, builder.shape);
 
 		imageManager = new WalkerImageManager(this, builder.standingImage,
-				builder.walkingImages, builder.jumpingImage, builder.fallingImage);
+				builder.walkingImages, builder.jumpingImage, builder.fallingImage, builder.cheerImages);
 		imageManager.display();
 	}
 
@@ -43,6 +43,7 @@ public class CustomWalker extends Walker {
 		private BodyImage jumpingImage = null;
 		private BodyImage fallingImage = null;
 		private BodyImage [] walkingImages = null;
+		private BodyImage [] cheerImages = null;
 
 		public Builder(World world, Shape shape) {
 			this.world = world;
@@ -66,6 +67,11 @@ public class CustomWalker extends Walker {
 
 		public Builder fallingImage(BodyImage fallingImage) {
 			this.fallingImage = fallingImage;
+			return this;
+		}
+
+		public Builder cheerImages(BodyImage [] cheerImages) {
+			this.cheerImages = cheerImages;
 			return this;
 		}
 

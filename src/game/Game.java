@@ -39,7 +39,7 @@ public class Game {
 
 		// Initialise the LevelManager singleton object and generate and display the first level
 		LevelManager.initialiseLevelManager(world, player);
-		LevelManager.getInstance().displayLevel(1);
+		LevelManager.getInstance().displayLevel(3);
 
 		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));
@@ -87,6 +87,6 @@ public class Game {
 		// Show the grid
 //		view.setGridResolution(1);
 		// Show the debug viewer
-//		new DebugViewer(world, 1920, 1080);
+		new DebugViewer(world, 1920, 1080);
 	}
 }
