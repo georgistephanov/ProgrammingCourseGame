@@ -118,6 +118,15 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	}
 
 	/**
+	 * Get the state of the game.
+	 *
+	 * @return  true if the player had won the game
+	 */
+	public boolean hasWon() {
+		return hasWon;
+	}
+
+	/**
 	 * Set whether the player has won the game.
 	 *
 	 * @param hasWon  true if the player has won the game
@@ -191,9 +200,9 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 			decreaseLives();
 
 			if (lives > 0) {
-				System.out.println("Ouch...");
-				System.out.println("Press space to continue\n");
+				StatusPanel.getInstance(getWorld()).setCentralMessage("Press  space  to  continue");
 			} else {
+				StatusPanel.getInstance(getWorld()).setCentralMessage("Game  over!");
 				LevelManager.getInstance().gameOver();
 			}
 

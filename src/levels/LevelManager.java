@@ -61,9 +61,10 @@ public final class LevelManager {
 	 * Generates and displays a game level.
 	 *
 	 * @param levelNumber  the level which to be generated and displayed
+	 * @param resetPlayerStats  true if the player stats should be reset
 	 * @throws RuntimeException  if there is no such {@code levelNumber} implemented
 	 */
-	public void displayLevel(int levelNumber) {
+	public void displayLevel(int levelNumber, boolean resetPlayerStats) {
 		if (levelNumber >= MIN_LEVEL && levelNumber <= MAX_LEVEL) {
 			currentLevel = levelNumber;
 
@@ -74,6 +75,9 @@ public final class LevelManager {
 
 			new BackgroundImage(world).displayLevelBackgroundImage(levelNumber);
 
+			if (resetPlayerStats) {
+				resetPlayerStats();
+			}
 		} else {
 			throw new RuntimeException("The game supports only levels " + MIN_LEVEL + " through " + MAX_LEVEL);
 		}
@@ -83,12 +87,16 @@ public final class LevelManager {
 	 * Restarts the game and sets the player's lives and coins to their default values.
 	 */
 	public void restartGame() {
-		// Resume the game, as it is paused now
-		StatusPanel.getInstance(world).clickPauseButton();
+		// Resume the game if it's paused
+		StatusPanel statusPanel = StatusPanel.getInstance(world);
+		if (!statusPanel.isGameRunning()) {
+			statusPanel.clickPauseButton();
+		}
+		statusPanel.clearCentralMessage();
 
 		// Reset the player stats and display the first level
 		resetPlayerStats();
-		displayLevel(1);
+		displayLevel(1, true);
 	}
 
 	/**

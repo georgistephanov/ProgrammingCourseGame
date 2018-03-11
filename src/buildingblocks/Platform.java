@@ -9,9 +9,21 @@ import java.awt.*;
  * A solid platform which is used as the main building block of the levels.
  */
 public class Platform extends CustomSolidFixture {
+	private static final float DEFAULT_HEIGHT = .5f;
+
 	private final Edge leftEdge;
 	private final Edge rightEdge;
 	private final float totalWidth;
+
+	/**
+	 * Creates this platform using the default height (0.5f).
+	 *
+	 * @param world  the world in which to be created
+	 * @param width  the width of the platform
+	 */
+	public Platform(World world, float width) {
+		this(world, width, DEFAULT_HEIGHT);
+	}
 
 	/**
 	 * Creates this platform and its edges.
@@ -20,7 +32,7 @@ public class Platform extends CustomSolidFixture {
 	 * @param width  the width of the platform
 	 * @param height  the height of the platform
 	 */
-	public Platform (World world, float width, float height) {
+	public Platform(World world, float width, float height) {
 		super(new StaticBody(world), new BoxShape(width - .4f, height));
 		getBody().setFillColor(Color.DARK_GRAY);
 

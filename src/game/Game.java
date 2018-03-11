@@ -39,7 +39,7 @@ public class Game {
 
 		// Initialise the LevelManager singleton object and generate and display the first level
 		LevelManager.initialiseLevelManager(world, player);
-		LevelManager.getInstance().displayLevel(3);
+		LevelManager.getInstance().displayLevel(1, false);
 
 		// Register the keyboard and mouse handlers
 		view.addKeyListener(new KeyboardHandler(world, player));

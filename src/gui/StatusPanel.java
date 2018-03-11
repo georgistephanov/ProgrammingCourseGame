@@ -6,11 +6,14 @@ import levels.LevelManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public final class StatusPanel extends JPanel {
 
 	private final JPanel infoPanel = new JPanel();
 	private final JPanel buttonsPanel = new JPanel();
+	private final JPanel messagePanel = new JPanel();
+	private final JLabel centralMessage = new JLabel();
 	private final AmountJLabel levelLabel = new AmountJLabel("Level");
 	private final AmountJLabel livesLabel = new AmountJLabel("Lives");
 	private final AmountJLabel coinsLabel = new AmountJLabel("Coins");
@@ -33,7 +36,7 @@ public final class StatusPanel extends JPanel {
 			new ImageIcon("data/buttons/reset_pressed.png")
 	};
 
-	private boolean isPauseIcon = true;
+	private boolean isGameRunning = true;
 	private StatusJButton pauseButton;
 	private StatusJButton resetButton;
 
@@ -65,14 +68,15 @@ public final class StatusPanel extends JPanel {
 		// Add the level label to the status panel
 		add(levelLabel);
 
-		// Initialise the buttons panel
+		// Initialise the panels
 		initButtonPanel(world);
-		// Initialise the info panel
 		initInfoPanel();
+		initMessage();
 	}
 
+
 	/**
-	 * Clears everything from the status panel and displays the winning message.
+	 * Clears everything from the status panel and displays the winning centralMessage.
 	 */
 	public void displayWinningMessage() {
 		remove(levelLabel);
@@ -87,37 +91,24 @@ public final class StatusPanel extends JPanel {
 
 		revalidate();
 		repaint();
-		System.out.println("You win!");
 	}
 
-	private void initInfoPanel() {
-		infoPanel.setBackground(new Color(0, 0, 0, 0));
-		infoPanel.add(livesLabel);
-		infoPanel.add(coinsLabel);
-
-		add(infoPanel, BorderLayout.EAST);
+	/**
+	 * Sets a message in the center of this object.
+	 *
+ 	 * @param message  the message to be displayed in the center of the status panel
+	 */
+	public void setCentralMessage(String message) {
+		centralMessage.setText(message);
+		revalidate();
+		repaint();
 	}
 
-	private void initButtonPanel(World world) {
-		pauseButton = new StatusJButton(pauseButtonIcons);
-		pauseButton.addActionListener((ActionEvent e) -> {
-			if (isPauseIcon) {
-				world.stop();
-			} else {
-				world.start();
-			}
-
-			toggleStartPauseButtons();
-		});
-
-		resetButton = new StatusJButton(resetGameIcons);
-		resetButton.addActionListener((ActionEvent e) -> LevelManager.getInstance().restartGame());
-
-		buttonsPanel.setBackground(new Color(0, 0, 0, 0));
-		buttonsPanel.add(pauseButton);
-		buttonsPanel.add(resetButton);
-
-		add(buttonsPanel, BorderLayout.WEST);
+	/**
+	 * Clears the central message of the status panel.
+	 */
+	public void clearCentralMessage() {
+		setCentralMessage("");
 	}
 
 	/**
@@ -138,7 +129,7 @@ public final class StatusPanel extends JPanel {
 	 * Displays the pause button icons.
 	 */
 	public void displayPauseButton() {
-		if (!isPauseIcon) {
+		if (!isGameRunning) {
 			toggleStartPauseButtons();
 		}
 	}
@@ -147,10 +138,11 @@ public final class StatusPanel extends JPanel {
 	 * Displays the start button icons.
 	 */
 	public void displayStartButton() {
-		if (isPauseIcon) {
+		if (isGameRunning) {
 			toggleStartPauseButtons();
 		}
 	}
+
 
 	/**
 	 * Checks if any of the status panel buttons has focus.
@@ -162,16 +154,12 @@ public final class StatusPanel extends JPanel {
 	}
 
 	/**
-	 * Toggles between the pause button icons and the start button icons.
+	 * Gets the value of the {@code isGameRunning} variable which specifies whether the game is running or is paused.
+	 *
+	 * @return  true if the game is running, false if the game is paused
 	 */
-	private void toggleStartPauseButtons() {
-		if (isPauseIcon) {
-			pauseButton.changeIcons(startButtonIcons);
-		} else {
-			pauseButton.changeIcons(pauseButtonIcons);
-		}
-
-		isPauseIcon = !isPauseIcon;
+	public boolean isGameRunning() {
+		return isGameRunning;
 	}
 
 	/**
@@ -199,5 +187,68 @@ public final class StatusPanel extends JPanel {
 	 */
 	public AmountJLabel getCoinsLabel() {
 		return coinsLabel;
+	}
+
+
+	private void initInfoPanel() {
+		infoPanel.setBackground(new Color(0, 0, 0, 0));
+		infoPanel.add(livesLabel);
+		infoPanel.add(coinsLabel);
+
+		add(infoPanel, BorderLayout.EAST);
+	}
+
+	private void initMessage() {
+		Font arcadeFont = getFont().deriveFont(56f);
+		try {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/arcade.ttf"));
+			arcadeFont = font.deriveFont(56f);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		centralMessage.setOpaque(true);
+		centralMessage.setFont(arcadeFont);
+		centralMessage.setForeground(Color.WHITE);
+		centralMessage.setBackground(Color.darkGray);
+		centralMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		centralMessage.setBorder(BorderFactory.createMatteBorder(0, 20, 0, 20, Color.darkGray));
+
+		add(centralMessage, BorderLayout.CENTER);
+	}
+
+	private void initButtonPanel(World world) {
+		pauseButton = new StatusJButton(pauseButtonIcons);
+		pauseButton.addActionListener((ActionEvent e) -> {
+			if (isGameRunning) {
+				world.stop();
+			} else {
+				world.start();
+			}
+
+			toggleStartPauseButtons();
+		});
+
+		resetButton = new StatusJButton(resetGameIcons);
+		resetButton.addActionListener((ActionEvent e) -> LevelManager.getInstance().restartGame());
+
+		buttonsPanel.setBackground(new Color(0, 0, 0, 0));
+		buttonsPanel.add(pauseButton);
+		buttonsPanel.add(resetButton);
+
+		add(buttonsPanel, BorderLayout.WEST);
+	}
+
+	/**
+	 * Toggles between the pause button icons and the start button icons.
+	 */
+	private void toggleStartPauseButtons() {
+		if (isGameRunning) {
+			pauseButton.changeIcons(startButtonIcons);
+		} else {
+			pauseButton.changeIcons(pauseButtonIcons);
+		}
+
+		isGameRunning = !isGameRunning;
 	}
 }

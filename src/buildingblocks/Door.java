@@ -3,6 +3,7 @@ package buildingblocks;
 import bodies.Player;
 import bodies.collectibles.CustomSensor;
 import city.cs.engine.*;
+import gui.StatusPanel;
 
 /**
  * The door which the player aims to reach in order to win the game.
@@ -54,7 +55,7 @@ public class Door extends CustomSensor {
 	@Override
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
-			System.out.println("Press SPACE to win...");
+			StatusPanel.getInstance(getBody().getWorld()).setCentralMessage("Press  SPACE  to  enter  the  door");
 			playerEntered = true;
 		}
 	}
@@ -67,6 +68,7 @@ public class Door extends CustomSensor {
 	@Override
 	public void endContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
+			StatusPanel.getInstance(getBody().getWorld()).clearCentralMessage();
 			playerEntered = false;
 		}
 	}

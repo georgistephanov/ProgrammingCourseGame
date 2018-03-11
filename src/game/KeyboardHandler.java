@@ -70,6 +70,10 @@ public class KeyboardHandler extends KeyAdapter {
 				break;
 
 			case KeyEvent.VK_SPACE:
+				if (player.hasWon()) {
+					return;
+				}
+
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
 					statusPanel.displayPauseButton();
@@ -79,7 +83,7 @@ public class KeyboardHandler extends KeyAdapter {
 
 					if (currentLevel < LevelManager.MAX_LEVEL) {
 						// There is a next level -> display it
-						levelManager.displayLevel(currentLevel + 1);
+						levelManager.displayLevel(currentLevel + 1, false);
 						Door.setPlayerEntered(false);
 					} else {
 						// The player has won
@@ -93,6 +97,8 @@ public class KeyboardHandler extends KeyAdapter {
 						}, 2000);
 					}
 				}
+				
+				statusPanel.clearCentralMessage();
 				break;
 			default:
 		}
@@ -148,13 +154,13 @@ public class KeyboardHandler extends KeyAdapter {
 			if (p.equals(password.toString())) {
 				switch (p) {
 					case "level1":
-						levelManager.displayLevel(1);
+						levelManager.displayLevel(1, true);
 						break;
 					case "level2":
-						levelManager.displayLevel(2);
+						levelManager.displayLevel(2, true);
 						break;
 					case "level3":
-						levelManager.displayLevel(3);
+						levelManager.displayLevel(3, true);
 						break;
 					default:
 				}

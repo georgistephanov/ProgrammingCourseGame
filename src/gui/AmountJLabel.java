@@ -45,21 +45,6 @@ public class AmountJLabel extends JLabel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Sets the amount on the label.
-	 *
-	 * @param evt  the change event of the property
-	 * @throws RuntimeException if the passed value is not an integer
-	 */
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getNewValue() instanceof Integer) {
-			setAmount((int) evt.getNewValue());
-		} else {
-			throw new RuntimeException("Passed value should be an integer");
-		}
-	}
-
-	/**
 	 * Returns the amount collected which is displayed next to the text of the label
 	 *
 	 * @return  the amount collected so far
@@ -76,5 +61,20 @@ public class AmountJLabel extends JLabel implements PropertyChangeListener {
 	private void setAmount(int amount) {
 		this.amount = amount;
 		setText(getText().split(" ")[0] + "   " + amount);
+	}
+
+	/**
+	 * Sets the amount on the label.
+	 *
+	 * @param evt  the change event of the property
+	 * @throws RuntimeException if the passed value is not an integer
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getNewValue() instanceof Integer) {
+			setAmount((int) evt.getNewValue());
+		} else {
+			throw new RuntimeException("Passed value should be an integer");
+		}
 	}
 }
