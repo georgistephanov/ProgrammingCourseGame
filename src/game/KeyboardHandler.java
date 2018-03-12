@@ -97,7 +97,7 @@ public class KeyboardHandler extends KeyAdapter {
 						}, 2000);
 					}
 				}
-				
+
 				statusPanel.clearCentralMessage();
 				break;
 			default:

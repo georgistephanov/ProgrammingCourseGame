@@ -9,7 +9,7 @@ import org.jbox2d.common.Vec2;
  * A wrapper around the {@code SolidFixture} class which provides a less boilerplate way of setting the position of its
  * instances in the world.
  */
-class CustomSolidFixture extends SolidFixture {
+public abstract class CustomSolidFixture extends SolidFixture {
 
 	/**
 	 * Creates the solid fixture.

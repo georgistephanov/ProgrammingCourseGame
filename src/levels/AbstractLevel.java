@@ -1,13 +1,7 @@
 package levels;
 
 import bodies.Player;
-import bodies.collectibles.Coin;
-import bodies.collectibles.Life;
-import bodies.enemies.FlyMan;
-import bodies.enemies.SpikeMan;
-import bodies.enemies.WingMan;
-import bodies.enemies.Zombie;
-import game.GameConstants;
+import bodies.factories.StaticFactory;
 import gui.AmountJLabel;
 import buildingblocks.Door;
 import buildingblocks.Platform;
@@ -20,6 +14,7 @@ import org.jbox2d.common.Vec2;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.util.stream.Stream;
 
 /**
@@ -55,8 +50,8 @@ abstract class AbstractLevel implements Level {
 
 		// Set the correct file directory
 		fileDirectory = fileDirectory.replace('?', Character.forDigit(levelNumber, 10));
-		// Set the world of the LevelBuilder
-		LevelBuilder.setWorld(world);
+		// Initialise the static factory
+		StaticFactory.initialise(world);
 	}
 
 	@Override
@@ -70,10 +65,13 @@ abstract class AbstractLevel implements Level {
 		String filePath = fileDirectory + "platforms.txt";
 
 		try (Stream<String> file = Files.lines(Paths.get(filePath))) {
-			file.forEach(LevelBuilder::createPlatform);
+			file.forEach(StaticFactory::createPlatform);
 		} catch (IOException ioe) {
 			System.out.println("There was a problem with the file located at " + filePath);
 			ioe.printStackTrace();
+		} catch (InvalidParameterException ipe) {
+			System.out.println("The file located at " + filePath + " contains line(s) with invalid format.");
+			ipe.printStackTrace();
 		}
 	}
 
@@ -82,10 +80,13 @@ abstract class AbstractLevel implements Level {
 		String filePath = fileDirectory + "enemies.txt";
 
 		try (Stream<String> file = Files.lines(Paths.get(filePath))) {
-			file.forEach(LevelBuilder::createEnemy);
+			file.forEach(StaticFactory::createEnemy);
 		} catch (IOException ioe) {
 			System.out.println("There was a problem with the file located at " + filePath);
 			ioe.printStackTrace();
+		} catch (InvalidParameterException ipe) {
+			System.out.println("The file located at " + filePath + " contains line(s) with invalid format.");
+			ipe.printStackTrace();
 		}
 	}
 
@@ -94,10 +95,13 @@ abstract class AbstractLevel implements Level {
 		String filePath = fileDirectory + "collectibles.txt";
 
 		try (Stream<String> file = Files.lines(Paths.get(filePath))) {
-			file.forEach(LevelBuilder::createCollectible);
+			file.forEach(StaticFactory::createCollectible);
 		} catch (IOException ioe) {
 			System.out.println("There was a problem with the file located at " + filePath);
 			ioe.printStackTrace();
+		} catch (InvalidParameterException ipe) {
+			System.out.println("The file located at " + filePath + " contains line(s) with invalid format.");
+			ipe.printStackTrace();
 		}
 	}
 
@@ -112,114 +116,5 @@ abstract class AbstractLevel implements Level {
 		}
 
 		displayEnemies();
-	}
-
-	private static class LevelBuilder {
-		private static World world;
-
-		static void setWorld(World world) {
-			LevelBuilder.world = world;
-		}
-
-		static void createPlatform(String line) {
-			if (stringsInLine(line) == 4) {
-				float [] parameters = getParametersFromFileLine(line);
-
-				String platformType = line.split("\t")[0];
-				float size = parameters[0];
-				float x = parameters[1];
-				float y = parameters[2];
-
-				switch (platformType) {
-					case "p":
-						new Platform(world, size).setPosition(x, y);
-						break;
-					case "w":
-						new Wall(world, size).setPosition(x, y);
-						break;
-				}
-			}
-		}
-
-		static void createEnemy(String line) {
-			if (stringsInLine(line) == 4) {
-				float [] parameters = getParametersFromFileLine(line);
-
-				String enemyType = line.split("\t")[0];
-				boolean walkRight = parameters[0] == 1;
-				float x = parameters[1];
-				float y = parameters[2];
-
-				switch (enemyType) {
-					case "s":
-						if (walkRight) {
-							new SpikeMan(world).setPosition(x, y);
-						} else {
-							new SpikeMan(world).setMovementDirection(GameConstants.MovementDirections.LEFT).setPosition(x, y);
-						}
-						break;
-					case "w":
-						if (walkRight) {
-							new WingMan(world).setPosition(x, y);
-						} else {
-							new WingMan(world).setMovementDirection(GameConstants.MovementDirections.LEFT).setPosition(x, y);
-						}
-						break;
-					case "f":
-						if (walkRight) {
-							new FlyMan(world).setPosition(x, y);
-						} else {
-							new FlyMan(world).setMovementDirection(GameConstants.MovementDirections.LEFT).setPosition(x, y);
-						}
-						break;
-					case "z":
-						if (walkRight) {
-							new Zombie(world).setPosition(x, y);
-						} else {
-							new Zombie(world).setMovementDirection(GameConstants.MovementDirections.LEFT).setPosition(x, y);
-						}
-				}
-			}
-		}
-
-		static void createCollectible(String line) {
-			if (stringsInLine(line) == 3) {
-				float [] parameters = getParametersFromFileLine(line);
-
-				String collectibleType = line.split("\t")[0];
-				float x = parameters[0];
-				float y = parameters[1];
-
-				switch (collectibleType) {
-					case "c":
-						new Coin(world).setPosition(x, y);
-						break;
-					case "l":
-						new Life(world).setPosition(x, y);
-						break;
-				}
-			}
-		}
-
-		static private int stringsInLine(String line) {
-			return line.split("\t").length;
-		}
-
-		static private float [] getParametersFromFileLine(String line) {
-			String [] stringParameters = line.split("\t");
-			float [] parameters = new float[stringParameters.length - 1];
-
-			try {
-				// Start from 1 to avoid the object which is specified to be created
-				for (int i = 1; i < stringParameters.length; i++) {
-					parameters[i - 1] = Float.valueOf(stringParameters[i]);
-				}
-			} catch (NumberFormatException nfe) {
-				nfe.printStackTrace();
-				System.out.println("Incorrect parameter in the level file.");
-			}
-
-			return parameters;
-		}
 	}
 }
