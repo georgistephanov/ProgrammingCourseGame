@@ -18,7 +18,7 @@ public class CustomWalker extends Walker {
 	protected WalkerImageManager imageManager;
 
 	/**
-	 * Constructs this object and creates the {@code WalkerImageManager} object.
+	 * Constructs this object and initialises the {@code imageManager} object.
 	 *
 	 * @param builder  the builder object with the world, shape and all necessary images set up
 	 */

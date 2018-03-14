@@ -45,8 +45,10 @@ public class Coin extends Collectible {
 	@Override
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
+			// Increase the player's coins
 			((Player) e.getContactBody()).addCoin();
 
+			// Destroy the coin
 			getBody().destroy();
 			destroy();
 		}

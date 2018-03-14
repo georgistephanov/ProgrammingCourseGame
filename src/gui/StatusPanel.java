@@ -12,7 +12,6 @@ public final class StatusPanel extends JPanel {
 
 	private final JPanel infoPanel = new JPanel();
 	private final JPanel buttonsPanel = new JPanel();
-	private final JPanel messagePanel = new JPanel();
 	private final JLabel centralMessage = new JLabel();
 	private final AmountJLabel levelLabel = new AmountJLabel("Level");
 	private final AmountJLabel livesLabel = new AmountJLabel("Lives");
@@ -43,8 +42,9 @@ public final class StatusPanel extends JPanel {
 	private static StatusPanel instance;
 
 	/**
-	 * Returns the singleton instance of the StatusPanel.
+	 * Gets the singleton instance of the StatusPanel.
 	 *
+	 * @param world  the world of the game
 	 * @return  the status panel
 	 */
 	public static StatusPanel getInstance(World world) {

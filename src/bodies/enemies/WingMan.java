@@ -6,7 +6,7 @@ import city.cs.engine.Shape;
 import city.cs.engine.World;
 
 /**
- * This class represents the flying enemies in the game.
+ * Represents the flying enemies in the game.
  */
 public class WingMan extends Enemy {
 	private static final Shape WING_MAN_SHAPE = new PolygonShape(-2.95f,-1.97f, -2.94f,1.98f, 2.93f,1.99f, 2.93f,-1.99f);
@@ -16,7 +16,7 @@ public class WingMan extends Enemy {
 			new BodyImage("data/enemies/wingMan2.png", 4),
 			new BodyImage("data/enemies/wingMan3.png", 4),
 			new BodyImage("data/enemies/wingMan4.png", 4),
-			new BodyImage("data/enemies/wingMan5.png", 4),
+			new BodyImage("data/enemies/wingMan5.png", 4)
 	};
 
 	/**

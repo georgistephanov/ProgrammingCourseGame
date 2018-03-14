@@ -1,7 +1,5 @@
 package bodies.factories;
 
-import city.cs.engine.World;
-
 import java.security.InvalidParameterException;
 
 /**
@@ -20,6 +18,8 @@ interface GameObjectFactory<T> {
 
 	/**
 	 * Creates a game object from a line of one of the text files associated with level creation.
+	 *
+	 * <p>
 	 * The line contains several strings divided by a tab character (\t).
 	 * The first string of the line contains a letter which specifies the type of the object to be created.
 	 * The other strings of the line contain floating point decimal numbers representing several of the following:
@@ -31,6 +31,7 @@ interface GameObjectFactory<T> {
 	 * (platforms) [width|height], [x], [y]
 	 * (enemies) [walking direction (0-left, 1-right)], [x], [y]
 	 * (collectibles) [x], [y]
+	 * </p>
 	 *
 	 * @param line  line of a text file which specifies level elements
 	 * @return  the object created

@@ -2,18 +2,7 @@ package levels;
 
 import bodies.Player;
 import bodies.collectibles.Coin;
-import bodies.collectibles.Life;
-import bodies.enemies.SpikeMan;
-import bodies.enemies.WingMan;
 import city.cs.engine.World;
-import gui.AmountJLabel;
-import gui.StatusPanel;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-import static game.GameConstants.MovementDirections.LEFT;
 
 /**
  * Concrete implementation of the {@code AbstractLevel} abstract class for the first level of the game.

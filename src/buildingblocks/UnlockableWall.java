@@ -10,7 +10,7 @@ import java.awt.*;
  * Coloured instance of {@code Wall} which is unlocked when the associated with it {@code Key} gets collected.
  */
 public class UnlockableWall extends Wall {
-	private Key key;
+	private final Key key;
 	private final float halfHeight;
 
 	/**
@@ -27,7 +27,7 @@ public class UnlockableWall extends Wall {
 	private Unlocking unlockingType = Unlocking.MOVE_UP;
 
 	/**
-	 * Creates a wall with half width of 1 meter, sets its fill colour and creates a {@code Key} object which will be associated with this wall.
+	 * Constructs a wall with half width of 1 meter, sets its fill colour and creates a {@code Key} object which will be associated with this wall.
 	 *
 	 * @param world  the world in which to be created
 	 * @param height  the halfHeight of the wall

@@ -20,7 +20,7 @@ public class Door extends CustomSensor {
 	private static boolean playerEntered = false;
 
 	/**
-	 * Constructs this object and sets its image.
+	 * Constructs the door and sets its image.
 	 *
 	 * @param world  the world in which to be created
 	 */

@@ -2,20 +2,9 @@ package levels;
 
 import bodies.Player;
 import bodies.collectibles.Coin;
-import bodies.collectibles.Life;
-import bodies.enemies.FlyMan;
-import bodies.enemies.SpikeMan;
-import buildingblocks.Platform;
 import buildingblocks.UnlockableWall;
-import buildingblocks.Wall;
-import city.cs.engine.Body;
 import city.cs.engine.World;
-import gui.AmountJLabel;
-import org.jbox2d.common.Vec2;
 import java.awt.*;
-
-import static game.GameConstants.MovementDirections.LEFT;
-import static game.GameConstants.MovementDirections.RIGHT;
 
 /**
  * Concrete implementation of the {@code AbstractLevel} abstract class for the second level of the game.

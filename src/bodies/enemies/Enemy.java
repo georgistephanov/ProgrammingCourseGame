@@ -8,7 +8,7 @@ import static game.GameConstants.MovementDirections.LEFT;
 import static game.GameConstants.MovementDirections.RIGHT;
 
 /**
- * A base class for all enemy objects.
+ * Base class for all enemy objects.
  */
 public abstract class Enemy extends CustomWalker implements StepListener, CollisionListener {
 	private float xVelocity = 10;
@@ -16,7 +16,7 @@ public abstract class Enemy extends CustomWalker implements StepListener, Collis
 	private int stepsChangeImage = 10;
 
 	/**
-	 * Creates this object, sets its scales its gravity by 2 and registers the collision and step listeners.
+	 * Constructs the enemy object, sets its scales its gravity by 2 and registers the collision and step listeners.
 	 *
 	 * @param builder  the builder object which is used to construct the parent object
 	 */

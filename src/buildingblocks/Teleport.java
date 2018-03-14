@@ -47,6 +47,7 @@ public class Teleport extends CustomSensor {
 	 * Creates two {@code ImageManager} objects (instances of {@code RotatingImageManager} for both objects and sets their properties.
 	 *
 	 * @param world  the world in which to be created
+	 * @param color  the color of the teleport (currently supports blue and orange)
 	 */
 	public Teleport(World world, TeleportColor color) {
 		super(new StaticBody(world), TELEPORT_SHAPE);

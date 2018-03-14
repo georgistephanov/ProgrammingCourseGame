@@ -17,7 +17,7 @@ public final class GameConstants {
 	/**
 	 * The title of the game window
 	 */
-	static final String WINDOW_TITLE = "Basic world";
+	static final String WINDOW_TITLE = "Ultra Platformer";
 
 	/**
 	 * The default velocity

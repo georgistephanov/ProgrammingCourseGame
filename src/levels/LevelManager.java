@@ -14,10 +14,10 @@ public final class LevelManager {
 	public static final int MAX_LEVEL = 3;
 
 	private static LevelManager instance;
-	private World world;
-	private Player player;
+	private final World world;
+	private final Player player;
 
-	private LevelFactory levelFactory;
+	private final LevelFactory levelFactory;
 	private int currentLevel;
 
 	/**

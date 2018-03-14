@@ -12,7 +12,7 @@ import org.jbox2d.common.Vec2;
 public abstract class CustomSolidFixture extends SolidFixture {
 
 	/**
-	 * Creates the solid fixture.
+	 * Constructs the solid fixture.
 	 *
 	 * @param body  the body of the solid fixture
 	 * @param shape  the shape of the solid fixture

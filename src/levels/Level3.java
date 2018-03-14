@@ -2,17 +2,8 @@ package levels;
 
 import bodies.Player;
 import bodies.collectibles.Coin;
-import bodies.enemies.FlyMan;
-import bodies.enemies.SpikeMan;
-import bodies.enemies.WingMan;
-import bodies.enemies.Zombie;
-import buildingblocks.Platform;
 import buildingblocks.Teleport;
-import buildingblocks.Wall;
 import city.cs.engine.World;
-
-import static game.GameConstants.MovementDirections.LEFT;
-import static game.GameConstants.MovementDirections.RIGHT;
 
 /**
  * Concrete implementation of the {@code AbstractLevel} abstract class for the third level of the game.

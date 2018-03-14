@@ -4,7 +4,7 @@ import city.cs.engine.*;
 import bodies.CustomWalker;
 
 /**
- * This class represents the spike enemies in the game.
+ * Represents the spike enemies in the game.
  */
 public class SpikeMan extends Enemy {
 	private static final Shape SPIKE_MAN_SHAPE = new PolygonShape(-1.16f,-1.99f, -1.15f,-0.22f, -0.03f,1.98f,

@@ -19,11 +19,11 @@ import static game.GameConstants.VELOCITY;
  */
 public class KeyboardHandler extends KeyAdapter {
 
-	private World world;
-	private Player player;
+	private final World world;
+	private final Player player;
 
-	private StatusPanel statusPanel;
-	private LevelManager levelManager;
+	private final StatusPanel statusPanel;
+	private final LevelManager levelManager;
 
 	private StringBuilder password = new StringBuilder();
 	private static final String [] PASSWORDS = {

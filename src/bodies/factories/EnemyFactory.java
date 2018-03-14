@@ -6,7 +6,7 @@ import game.GameConstants;
 import java.security.InvalidParameterException;
 
 /**
- * Concrete implementation of the {@link GameObjectFactory} for creating {@code Enemy} objects.
+ * Concrete implementation of the {@link GameObjectFactory} for creating {@link Enemy} objects.
  */
 class EnemyFactory extends AbstractGameObjectFactory<Enemy> {
 
