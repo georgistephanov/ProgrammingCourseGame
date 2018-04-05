@@ -77,6 +77,7 @@ public class KeyboardHandler extends KeyAdapter {
 				if ( !world.isRunning() && player.getLives() > 0 ) {
 					world.start();
 					statusPanel.displayPauseButton();
+					GameSounds.resumeBackgroundMusic();
 				} else if (Door.hasPlayerEntered()) {
 
 					int currentLevel = levelManager.getCurrentLevel();

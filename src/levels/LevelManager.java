@@ -2,7 +2,9 @@ package levels;
 
 import bodies.Player;
 import city.cs.engine.Body;
+import city.cs.engine.SoundClip;
 import city.cs.engine.World;
+import game.GameSounds;
 import gui.StatusPanel;
 import gui.imagemanagers.BackgroundImage;
 
@@ -74,6 +76,7 @@ public final class LevelManager {
 			level.displayCollectibles();
 
 			new BackgroundImage(world).displayLevelBackgroundImage(levelNumber);
+			GameSounds.startBackgroundMusic(currentLevel);
 
 			if (resetPlayerStats) {
 				resetPlayerStats();

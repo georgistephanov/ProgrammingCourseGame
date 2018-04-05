@@ -3,6 +3,7 @@ package buildingblocks;
 import bodies.Player;
 import bodies.collectibles.CustomSensor;
 import city.cs.engine.*;
+import game.GameSounds;
 import gui.imagemanagers.ImageManager;
 import gui.imagemanagers.RotatingImageManager;
 import org.jbox2d.common.Vec2;
@@ -95,6 +96,9 @@ public class Teleport extends CustomSensor {
 		if (e.getContactBody() instanceof Player) {
 			Vec2 destinationTeleportPosition = destinationTeleport.getBody().getPosition();
 			((Player) e.getContactBody()).setPosition(destinationTeleportPosition.x, destinationTeleportPosition.y);
+
+			// Play the teleoprt sound
+			GameSounds.playTeleportSound();
 		}
 	}
 }

@@ -2,6 +2,7 @@ package bodies.collectibles;
 
 import bodies.Player;
 import city.cs.engine.*;
+import game.GameSounds;
 import gui.imagemanagers.SingleImageManager;
 
 /**
@@ -34,6 +35,9 @@ public class Life extends Collectible {
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			((Player) e.getContactBody()).addLife();
+
+			// Play the life collected sound
+			GameSounds.playLifeSound();
 
 			getBody().destroy();
 			destroy();

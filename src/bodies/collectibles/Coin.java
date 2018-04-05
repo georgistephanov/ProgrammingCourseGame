@@ -2,6 +2,7 @@ package bodies.collectibles;
 
 import bodies.Player;
 import city.cs.engine.*;
+import game.GameSounds;
 import gui.imagemanagers.RotatingImageManager;
 
 /**
@@ -47,6 +48,9 @@ public class Coin extends Collectible {
 		if (e.getContactBody() instanceof Player) {
 			// Increase the player's coins
 			((Player) e.getContactBody()).addCoin();
+
+			// Play the collect a coin sound
+			GameSounds.playCoinSound();
 
 			// Destroy the coin
 			getBody().destroy();

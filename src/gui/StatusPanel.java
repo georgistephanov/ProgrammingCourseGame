@@ -1,6 +1,7 @@
 package gui;
 
 import city.cs.engine.World;
+import game.GameSounds;
 import levels.LevelManager;
 
 import javax.swing.*;
@@ -222,8 +223,10 @@ public final class StatusPanel extends JPanel {
 		pauseButton.addActionListener((ActionEvent e) -> {
 			if (isGameRunning) {
 				world.stop();
+				GameSounds.pauseBackgroundMusic();
 			} else {
 				world.start();
+				GameSounds.resumeBackgroundMusic();
 			}
 
 			toggleStartPauseButtons();

@@ -4,6 +4,7 @@ import bodies.Player;
 import buildingblocks.UnlockableWall;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
+import game.GameSounds;
 import gui.imagemanagers.SingleImageManager;
 
 /**
@@ -42,6 +43,9 @@ public class Key extends Collectible {
 	public void beginContact(SensorEvent e) {
 		if (e.getContactBody() instanceof Player) {
 			unlockableWall.unlock();
+
+			// Play unlock door sound
+			GameSounds.playUnlockDoorSound();
 
 			getBody().destroy();
 			destroy();

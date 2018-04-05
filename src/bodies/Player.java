@@ -1,5 +1,6 @@
 package bodies;
 
+import game.GameSounds;
 import gui.AmountJLabel;
 import city.cs.engine.*;
 import bodies.enemies.Enemy;
@@ -196,6 +197,10 @@ public class Player extends CustomWalker implements StepListener, CollisionListe
 	@Override
 	public void collide(CollisionEvent e) {
 		if ( e.getOtherBody() instanceof Enemy) {
+			// Pause the background music and play enemy collision sound
+			GameSounds.pauseBackgroundMusic();
+			GameSounds.playKillSound();
+
 			// Decrease the player's lives
 			decreaseLives();
 

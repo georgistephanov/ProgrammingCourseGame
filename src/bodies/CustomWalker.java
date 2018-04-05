@@ -1,6 +1,7 @@
 package bodies;
 
 import city.cs.engine.*;
+import game.GameSounds;
 import gui.imagemanagers.WalkerImageManager;
 import org.jbox2d.common.Vec2;
 
@@ -103,6 +104,8 @@ public class CustomWalker extends Walker {
 		}
 
 		// Calculate and apply the force with which the object is going to move
+		// Change getMass() method to 1 if it gives a compilation error, as when my code was marked for increment 1 and 2
+		// on the tutor's laptop it couldn't compile for some reason. Default dynamic body's mass is 1.
 		float force = getMass() * velocityChange / (1/60f);			// F = mv/t
 		applyForce(new Vec2(force, 0));
 	}
@@ -113,6 +116,8 @@ public class CustomWalker extends Walker {
 	 */
 	@Override
 	public void stopWalking() {
+		// Change getMass() method to 1 if it gives a compilation error, as when my code was marked for increment 1 and 2
+		// on the tutor's laptop it couldn't compile for some reason. Default dynamic body's mass is 1.
 		float force = getMass() * -(getLinearVelocity().x) / (1/60f);
 		applyForce(new Vec2(force, 0));
 	}
@@ -127,7 +132,12 @@ public class CustomWalker extends Walker {
 	@Override
 	public void jump(float speed) {
 		if (getLinearVelocity().y == 0) {
+			// Change getMass() method to 1 if it gives a compilation error, as when my code was marked for increment 1 and 2
+			// on the tutor's laptop it couldn't compile for some reason. Default dynamic body's mass is 1.
 			applyImpulse(new Vec2(0, getMass() * speed));
+
+			// Play jump sound
+			GameSounds.playJumpSound();
 		}
 	}
 
